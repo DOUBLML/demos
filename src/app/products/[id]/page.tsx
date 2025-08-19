@@ -12,7 +12,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Minus, Plus, ChevronRight, ZoomIn } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Minus, Plus, ChevronRight, ZoomIn, ArrowDown } from "lucide-react";
 import Link from "next/link";
 
 // Mock product data - in a real app this would come from an API
@@ -164,6 +165,8 @@ export default function ProductDetailPage({
   const [selectedSize, setSelectedSize] = useState("");
   const [selectedBandSize, setSelectedBandSize] = useState("");
   const [selectedCupSize, setSelectedCupSize] = useState("");
+  const [doublIdOption, setDoublIdOption] = useState("input"); // "input" or "no-doubl-id"
+  const [doublId, setDoublId] = useState("");
 
   const product = productData[resolvedParams.id as keyof typeof productData];
 
@@ -173,6 +176,16 @@ export default function ProductDetailPage({
 
   const selectedColor =
     product.colors.find((color) => color.isSelected) || product.colors[0];
+
+  const handleApplyId = () => {
+    // Handle DOUBL ID application
+    console.log("Applying DOUBL ID:", doublId);
+  };
+
+  const handleScanNow = () => {
+    // Handle scan functionality
+    console.log("Starting scan...");
+  };
 
   return (
     <div className="min-h-screen bg-white">
@@ -384,65 +397,75 @@ export default function ProductDetailPage({
               </div>
             </div>
 
-            {/* Size Selection */}
+            {/* DOUBL Fit ID Section */}
             <div>
-              <div className="flex justify-between items-center mb-3">
-                <h3 className="font-medium text-gray-900">Size:</h3>
-                <Link href="#" className="text-sm text-gray-600 underline">
-                  Size Guide
-                </Link>
-              </div>
+              <h3 className="font-medium text-gray-900 mb-4">
+                How would you like to proceed?
+              </h3>
 
-              <div className="grid grid-cols-3 gap-3 mb-4">
-                <Select
-                  value={selectedBandSize}
-                  onValueChange={setSelectedBandSize}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Band" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="30">30</SelectItem>
-                    <SelectItem value="32">32</SelectItem>
-                    <SelectItem value="34">34</SelectItem>
-                    <SelectItem value="36">36</SelectItem>
-                    <SelectItem value="38">38</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <Select
-                  value={selectedCupSize}
-                  onValueChange={setSelectedCupSize}
-                >
-                  <SelectTrigger>
-                    <SelectValue placeholder="Cup" />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="A">A</SelectItem>
-                    <SelectItem value="B">B</SelectItem>
-                    <SelectItem value="C">C</SelectItem>
-                    <SelectItem value="D">D</SelectItem>
-                    <SelectItem value="DD">DD</SelectItem>
-                  </SelectContent>
-                </Select>
-
-                <span className="flex items-center justify-center text-sm text-gray-600">
-                  =
-                </span>
-              </div>
-
-              <Select value={selectedSize} onValueChange={setSelectedSize}>
-                <SelectTrigger className="w-full">
-                  <SelectValue placeholder="Knix Size" />
+              <Select value={doublIdOption} onValueChange={setDoublIdOption}>
+                <SelectTrigger className="w-full mb-4">
+                  <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="xs">XS</SelectItem>
-                  <SelectItem value="s">S</SelectItem>
-                  <SelectItem value="m">M</SelectItem>
-                  <SelectItem value="l">L</SelectItem>
-                  <SelectItem value="xl">XL</SelectItem>
+                  <SelectItem value="input">Input DOUBL ID</SelectItem>
+                  <SelectItem value="no-doubl-id">
+                    I don't have a DOUBL ID
+                  </SelectItem>
                 </SelectContent>
               </Select>
+
+              {doublIdOption === "input" && (
+                <div className="space-y-4">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-900 mb-2">
+                      Enter your DOUBL ID
+                    </label>
+                    <Input
+                      type="text"
+                      placeholder="e.g., AB12-34CD-5678"
+                      value={doublId}
+                      onChange={(e) => setDoublId(e.target.value)}
+                      className="w-full"
+                    />
+                    <p className="text-sm text-gray-600 mt-1">
+                      Your encrypted fit profile; you'll confirm size at
+                      checkout.
+                    </p>
+                  </div>
+                  <Button
+                    onClick={handleApplyId}
+                    className="w-full text-white"
+                    style={{ backgroundColor: "#7c0347" }}
+                    disabled={!doublId}
+                  >
+                    Apply ID
+                  </Button>
+                </div>
+              )}
+
+              {doublIdOption === "no-doubl-id" && (
+                <div className="space-y-4">
+                  <p className="text-sm text-gray-600">
+                    Don't have a DOUBL ID yet? Create one in under 60 seconds.
+                  </p>
+                  <div className="flex gap-3">
+                    <Button
+                      onClick={handleScanNow}
+                      className="text-white"
+                      style={{ backgroundColor: "#7c0347" }}
+                    >
+                      SCAN NOW
+                    </Button>
+                    <Button
+                      variant="outline"
+                      className="text-black border-gray-400 hover:bg-gray-50"
+                    >
+                      What is DOUBL ID?
+                    </Button>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Quantity and Add to Cart */}
@@ -469,8 +492,11 @@ export default function ProductDetailPage({
                 </div>
               </div>
 
-              <Button className="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 text-lg font-medium">
-                SELECT SIZE
+              <Button
+                className="w-full text-white py-3 text-lg font-medium"
+                style={{ backgroundColor: "#800020" }}
+              >
+                ADD TO BAG - {product.price}
               </Button>
 
               <div className="bg-green-50 text-green-800 p-3 rounded-lg text-sm">
@@ -479,6 +505,103 @@ export default function ProductDetailPage({
 
               <div className="text-sm text-gray-600">
                 or 4 payments of 17.00 with <strong>sezzle</strong>
+              </div>
+            </div>
+
+            {/* Size Selection Modal Trigger */}
+            <div className="relative">
+              <div className="flex justify-center">
+                <ArrowDown className="h-8 w-8 text-purple-700 animate-bounce" />
+              </div>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-4">
+                <div className="grid md:grid-cols-2 gap-6">
+                  {/* Left Modal */}
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      Size Selection
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Replace traditional sizes with your DOUBL ID or start a
+                      quick scan.
+                    </p>
+                    <div className="space-y-3">
+                      <h5 className="font-medium text-gray-900">
+                        How would you like to proceed?
+                      </h5>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Input DOUBL ID" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="input">Input DOUBL ID</SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <div>
+                        <label className="block text-sm font-medium text-gray-900 mb-1">
+                          Enter your DOUBL ID
+                        </label>
+                        <Input
+                          placeholder="e.g., AB12-34CD-5678"
+                          className="mb-2"
+                        />
+                        <p className="text-xs text-gray-600">
+                          Your encrypted fit profile; you'll confirm size at
+                          checkout.
+                        </p>
+                      </div>
+                      <Button
+                        className="w-full text-white"
+                        style={{ backgroundColor: "#7c0347" }}
+                      >
+                        Apply ID
+                      </Button>
+                    </div>
+                  </div>
+
+                  {/* Right Modal */}
+                  <div className="bg-white rounded-lg p-4 shadow-sm">
+                    <h4 className="font-semibold text-gray-900 mb-2">
+                      Size Selection
+                    </h4>
+                    <p className="text-sm text-gray-600 mb-4">
+                      Replace traditional sizes with your DOUBL ID or start a
+                      quick scan.
+                    </p>
+                    <div className="space-y-3">
+                      <h5 className="font-medium text-gray-900">
+                        How would you like to proceed?
+                      </h5>
+                      <Select>
+                        <SelectTrigger>
+                          <SelectValue placeholder="I don't have a DOUBL ID" />
+                        </SelectTrigger>
+                        <SelectContent>
+                          <SelectItem value="no-id">
+                            I don't have a DOUBL ID
+                          </SelectItem>
+                        </SelectContent>
+                      </Select>
+                      <p className="text-sm text-gray-600">
+                        Don't have a DOUBL ID yet? Create one in under 60
+                        seconds.
+                      </p>
+                      <div className="flex gap-2">
+                        <Button
+                          className="text-white"
+                          style={{ backgroundColor: "#7c0347" }}
+                        >
+                          SCAN NOW
+                        </Button>
+                        <Button
+                          variant="outline"
+                          className="text-black border-gray-400 hover:bg-gray-50"
+                        >
+                          What is DOUBL ID?
+                        </Button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
