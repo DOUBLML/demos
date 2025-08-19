@@ -15,6 +15,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { Minus, Plus, ChevronRight, ZoomIn, ArrowDown } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 // Mock product data - in a real app this would come from an API
 const productData = {
@@ -167,6 +168,8 @@ export default function ProductDetailPage({
   const [selectedCupSize, setSelectedCupSize] = useState("");
   const [doublIdOption, setDoublIdOption] = useState("input"); // "input" or "no-doubl-id"
   const [doublId, setDoublId] = useState("");
+  const [selectedColorState, setSelectedColorState] = useState("");
+  const router = useRouter();
 
   const product = productData[resolvedParams.id as keyof typeof productData];
 
@@ -178,8 +181,24 @@ export default function ProductDetailPage({
     product.colors.find((color) => color.isSelected) || product.colors[0];
 
   const handleApplyId = () => {
-    // Handle DOUBL ID application
-    console.log("Applying DOUBL ID:", doublId);
+    if (!doublId.trim()) return;
+
+    // Save product data to localStorage for checkout
+    const checkoutData = {
+      id: resolvedParams.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      selectedColor: selectedColor.name,
+      selectedSize: selectedSize || "S", // Default to S if no size selected
+      doublId: doublId,
+      quantity: quantity,
+    };
+
+    localStorage.setItem("checkoutProduct", JSON.stringify(checkoutData));
+
+    // Navigate to checkout
+    router.push("/checkout");
   };
 
   const handleScanNow = () => {
@@ -388,8 +407,12 @@ export default function ProductDetailPage({
                 {product.colors.map((color, index) => (
                   <button
                     key={index}
+                    onClick={() => setSelectedColorState(color.name)}
                     className={`w-8 h-8 rounded-full border-2 ${
-                      color.isSelected ? "border-gray-900" : "border-gray-300"
+                      selectedColorState === color.name ||
+                      (!selectedColorState && color.isSelected)
+                        ? "border-gray-900"
+                        : "border-gray-300"
                     }`}
                     style={{ backgroundColor: color.value }}
                   />
