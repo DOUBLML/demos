@@ -1,0 +1,626 @@
+"use client";
+
+import Image from "next/image";
+import { useState, use } from "react";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent } from "@/components/ui/card";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { Minus, Plus, ChevronRight, ZoomIn } from "lucide-react";
+import Link from "next/link";
+
+// Mock product data - in a real app this would come from an API
+const productData = {
+  "revolution-scoop-bra": {
+    name: "Revolution Scoop Bra",
+    price: "$68.00",
+    originalPrice: null,
+    badge: "New",
+    description:
+      "Feels like a second skin, stays invisible under clothes. The #1 rated, wireless support of the best-selling Revolution bra, with a scoop.",
+    colors: [
+      { name: "Black", value: "#000000" },
+      { name: "Nude", value: "#D4A574" },
+      { name: "Brown", value: "#8B4513" },
+      { name: "Pink", value: "#F4C2C2" },
+      { name: "Cheetah Print", value: "#DEB887", isSelected: true },
+    ],
+    features: [
+      "Wireless, supportive, and incredibly wearable",
+      "Versatile scoop neckline with invisible bonded construction",
+      "Wireless support with 3D printed stabilizers",
+      "BeyondSmooth™ 4-way stretch fabric is bonded not stitched, so the bra stays smooth under clothes",
+      "Lower strap placement for better, no-show fit",
+      "Customize your straps: straight or racerback",
+    ],
+    details: {
+      fabric: "78% Nylon, 22% Elastane",
+      care: "Machine wash cold, lay flat to dry",
+      support: "Light to medium support",
+    },
+  },
+  "leakproof-ultrathin-no-show-bikini": {
+    name: "Leakproof UltraThin No-Show Bikini",
+    price: "$27.00",
+    originalPrice: null,
+    badge: "Kristen's Fave",
+    description:
+      "Ultra-thin protection that feels like regular underwear. Perfect for light days, spotting, and backup protection.",
+    colors: [
+      { name: "Nude", value: "#D4A574", isSelected: true },
+      { name: "Black", value: "#000000" },
+      { name: "Brown", value: "#8B4513" },
+      { name: "Pink", value: "#F4C2C2" },
+      { name: "Blue", value: "#4682B4" },
+      { name: "Purple", value: "#DDA0DD" },
+    ],
+    features: [
+      "Ultra-thin 2mm gusset technology",
+      "Holds up to 2 teaspoons of fluid",
+      "No-show design with bonded edges",
+      "Breathable and moisture-wicking",
+      "Perfect for light days and backup protection",
+    ],
+    details: {
+      fabric: "Body: 79% Nylon, 21% Elastane. Gusset: Multiple layers",
+      care: "Machine wash cold, lay flat to dry",
+      absorption: "Light flow (2 tsp)",
+    },
+  },
+  "revolution-v-neck-bra": {
+    name: "Revolution V-Neck Bra",
+    price: "$68.00",
+    originalPrice: null,
+    badge: "Best Seller",
+    description:
+      "The original Revolution bra with a flattering V-neckline. Wireless support that stays invisible under clothes.",
+    colors: [
+      { name: "Black", value: "#000000", isSelected: true },
+      { name: "Nude", value: "#D4A574" },
+      { name: "White", value: "#F5F5DC" },
+      { name: "Brown", value: "#8B4513" },
+      { name: "Purple", value: "#800080" },
+      { name: "Tan", value: "#654321" },
+    ],
+    features: [
+      "Wireless, supportive, and incredibly wearable",
+      "Flattering V-neckline design",
+      "Wireless support with 3D printed stabilizers",
+      "BeyondSmooth™ 4-way stretch fabric",
+      "Bonded construction for no-show fit",
+    ],
+    details: {
+      fabric: "78% Nylon, 22% Elastane",
+      care: "Machine wash cold, lay flat to dry",
+      support: "Light to medium support",
+    },
+  },
+  "sculptrib-cotton-tank": {
+    name: "SculptRib™ Cotton Tank",
+    price: "$40.80",
+    originalPrice: "$48.00",
+    badge: "Joanna's Pick",
+    description:
+      "Ribbed cotton tank with a sculpting fit. Perfect for layering or wearing on its own.",
+    colors: [
+      { name: "Nude", value: "#D4A574", isSelected: true },
+      { name: "Black", value: "#000000" },
+      { name: "White", value: "#F5F5DC" },
+    ],
+    features: [
+      "100% cotton ribbed fabric",
+      "Sculpting fit through the body",
+      "Perfect for layering",
+      "Soft and breathable",
+      "Machine washable",
+    ],
+    details: {
+      fabric: "100% Cotton",
+      care: "Machine wash cold, tumble dry low",
+      fit: "Fitted through body",
+    },
+  },
+};
+
+const relatedProducts = [
+  {
+    id: "leakproof-ultrathin-no-show-high-rise",
+    name: "Leakproof UltraThin No-Show High Rise",
+    price: "$32.00",
+    badge: "Best Seller",
+    image: "bg-amber-100",
+  },
+  {
+    id: "revolution-v-neck-bra",
+    name: "Revolution V-Neck Bra",
+    price: "$68.00",
+    badge: "Best Seller",
+    image: "bg-gray-900",
+  },
+  {
+    id: "revolution-push-up-bra",
+    name: "Revolution Push-Up Bra",
+    price: "$72.00",
+    badge: "New",
+    image: "bg-amber-200",
+  },
+];
+
+export default function ProductDetailPage({
+  params,
+}: {
+  params: Promise<{ id: string }>;
+}) {
+  // Use the 'use' hook to unwrap the Promise
+  const resolvedParams = use(params);
+
+  const [quantity, setQuantity] = useState(1);
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedBandSize, setSelectedBandSize] = useState("");
+  const [selectedCupSize, setSelectedCupSize] = useState("");
+
+  const product = productData[resolvedParams.id as keyof typeof productData];
+
+  if (!product) {
+    return <div>Product not found</div>;
+  }
+
+  const selectedColor =
+    product.colors.find((color) => color.isSelected) || product.colors[0];
+
+  return (
+    <div className="min-h-screen bg-white">
+      {/* Top Banner */}
+      <div className="bg-black text-white text-center py-2 text-sm">
+        Bundle & Save on Leakproof Undies - starting at 3 for $60
+      </div>
+
+      {/* Navigation - Same as homepage */}
+      <nav className="border-b bg-white sticky top-0 z-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-16">
+            <div className="flex-shrink-0">
+              <Link href="/">
+                <h1 className="text-2xl font-bold text-black">knix</h1>
+              </Link>
+            </div>
+            <div className="hidden md:block">
+              <div className="ml-10 flex items-baseline space-x-8">
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Shop All
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Leakproof
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Bras
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Underwear
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Apparel
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Swim
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Teen
+                </a>
+                <a
+                  href="#"
+                  className="text-gray-900 hover:text-gray-600 px-3 py-2 text-sm font-medium"
+                >
+                  Sale & Offers
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nav>
+
+      {/* Breadcrumb */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+        <div className="flex items-center space-x-2 text-sm text-gray-600">
+          <Link href="/" className="hover:text-gray-900">
+            Home
+          </Link>
+          <ChevronRight className="h-4 w-4" />
+          <Link href="/" className="hover:text-gray-900">
+            Shop All Bras
+          </Link>
+          <ChevronRight className="h-4 w-4" />
+          <span className="text-gray-900">{product.name}</span>
+        </div>
+      </div>
+
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <div className="grid lg:grid-cols-2 gap-12">
+          {/* Product Images */}
+          <div className="space-y-6">
+            {/* Main Product Images */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              {/* Front View */}
+              <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center">
+                  <span className="text-gray-600">Front View</span>
+                </div>
+                <div className="absolute top-4 right-4">
+                  <ZoomIn className="h-6 w-6 text-gray-600" />
+                </div>
+              </div>
+
+              {/* Product Detail/Back View */}
+              <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <span className="text-gray-600">Detail View</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Additional Views */}
+            <div className="grid grid-cols-2 gap-4">
+              <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                  <span className="text-gray-600 text-sm">Back View</span>
+                </div>
+              </div>
+              <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                  <span className="text-gray-600 text-sm">Side View</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Product Info Graphic */}
+            <div className="bg-gray-50 rounded-lg p-6">
+              <div className="text-center mb-6">
+                <div className="text-sm text-gray-600 mb-2">
+                  Versatile neckline with
+                </div>
+                <div className="text-sm text-gray-600">
+                  invisible construction
+                </div>
+              </div>
+
+              <div className="relative bg-white rounded-lg p-8 mx-auto max-w-sm">
+                <div className="bg-amber-200 rounded-lg h-32 flex items-center justify-center mb-4">
+                  <span className="text-gray-600 text-sm">Product Diagram</span>
+                </div>
+
+                <div className="space-y-4 text-sm">
+                  <div className="flex justify-between items-center">
+                    <span>Customizable straps:</span>
+                    <span className="text-gray-600">straight or racerback</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>Wireless support with 3D</span>
+                    <span className="text-gray-600">BeyondSmooth™ 4-way</span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span>printed stabilizers</span>
+                    <span className="text-gray-600">
+                      stretch fabric stays smooth
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Product Details */}
+          <div className="space-y-6">
+            {/* Product Header */}
+            <div>
+              {product.badge && (
+                <Badge className="mb-3 bg-gray-100 text-gray-800">
+                  {product.badge}
+                </Badge>
+              )}
+              <h1 className="text-3xl font-bold text-gray-900 mb-4">
+                {product.name}
+              </h1>
+              <p className="text-gray-600 mb-6">{product.description}</p>
+
+              <div className="flex items-center space-x-4 mb-6">
+                <span className="text-2xl font-bold text-gray-900">
+                  {product.price}
+                </span>
+                {product.originalPrice && (
+                  <span className="text-lg text-gray-500 line-through">
+                    {product.originalPrice}
+                  </span>
+                )}
+                <Badge className="bg-green-100 text-green-800">
+                  10% off Bra & Underwear Sets*
+                </Badge>
+              </div>
+            </div>
+
+            {/* Color Selection */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-medium text-gray-900">
+                  Color: {selectedColor.name}, limited edition
+                </h3>
+              </div>
+              <div className="flex space-x-3">
+                {product.colors.map((color, index) => (
+                  <button
+                    key={index}
+                    className={`w-8 h-8 rounded-full border-2 ${
+                      color.isSelected ? "border-gray-900" : "border-gray-300"
+                    }`}
+                    style={{ backgroundColor: color.value }}
+                  />
+                ))}
+              </div>
+            </div>
+
+            {/* Size Selection */}
+            <div>
+              <div className="flex justify-between items-center mb-3">
+                <h3 className="font-medium text-gray-900">Size:</h3>
+                <Link href="#" className="text-sm text-gray-600 underline">
+                  Size Guide
+                </Link>
+              </div>
+
+              <div className="grid grid-cols-3 gap-3 mb-4">
+                <Select
+                  value={selectedBandSize}
+                  onValueChange={setSelectedBandSize}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Band" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="30">30</SelectItem>
+                    <SelectItem value="32">32</SelectItem>
+                    <SelectItem value="34">34</SelectItem>
+                    <SelectItem value="36">36</SelectItem>
+                    <SelectItem value="38">38</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <Select
+                  value={selectedCupSize}
+                  onValueChange={setSelectedCupSize}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Cup" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="A">A</SelectItem>
+                    <SelectItem value="B">B</SelectItem>
+                    <SelectItem value="C">C</SelectItem>
+                    <SelectItem value="D">D</SelectItem>
+                    <SelectItem value="DD">DD</SelectItem>
+                  </SelectContent>
+                </Select>
+
+                <span className="flex items-center justify-center text-sm text-gray-600">
+                  =
+                </span>
+              </div>
+
+              <Select value={selectedSize} onValueChange={setSelectedSize}>
+                <SelectTrigger className="w-full">
+                  <SelectValue placeholder="Knix Size" />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="xs">XS</SelectItem>
+                  <SelectItem value="s">S</SelectItem>
+                  <SelectItem value="m">M</SelectItem>
+                  <SelectItem value="l">L</SelectItem>
+                  <SelectItem value="xl">XL</SelectItem>
+                </SelectContent>
+              </Select>
+            </div>
+
+            {/* Quantity and Add to Cart */}
+            <div className="space-y-4">
+              <div className="flex items-center space-x-4">
+                <div className="flex items-center border rounded-lg">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setQuantity(Math.max(1, quantity - 1))}
+                    className="px-3"
+                  >
+                    <Minus className="h-4 w-4" />
+                  </Button>
+                  <span className="px-4 py-2 border-x">{quantity}</span>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={() => setQuantity(quantity + 1)}
+                    className="px-3"
+                  >
+                    <Plus className="h-4 w-4" />
+                  </Button>
+                </div>
+              </div>
+
+              <Button className="w-full bg-purple-700 hover:bg-purple-800 text-white py-3 text-lg font-medium">
+                SELECT SIZE
+              </Button>
+
+              <div className="bg-green-50 text-green-800 p-3 rounded-lg text-sm">
+                10% off Bra & Underwear Sets*
+              </div>
+
+              <div className="text-sm text-gray-600">
+                or 4 payments of 17.00 with <strong>sezzle</strong>
+              </div>
+            </div>
+
+            {/* Shipping & Returns */}
+            <div className="grid grid-cols-2 gap-4 py-4 border-t">
+              <div>
+                <h4 className="font-medium text-gray-900 mb-1">
+                  Free Shipping
+                </h4>
+                <p className="text-sm text-gray-600">on orders $100+</p>
+              </div>
+              <div>
+                <h4 className="font-medium text-gray-900 mb-1">
+                  Rewards members
+                </h4>
+                <p className="text-sm text-gray-600">earn 68 points</p>
+              </div>
+            </div>
+
+            {/* Collapsible Sections */}
+            <div className="space-y-4 border-t pt-6">
+              <details className="group">
+                <summary className="flex justify-between items-center cursor-pointer py-2">
+                  <span className="font-medium text-gray-900">Details</span>
+                  <span className="text-gray-400 group-open:rotate-180 transition-transform">
+                    ▼
+                  </span>
+                </summary>
+                <div className="pt-2 pb-4">
+                  <ul className="space-y-1 text-sm text-gray-600">
+                    {product.features.map((feature, index) => (
+                      <li key={index}>• {feature}</li>
+                    ))}
+                  </ul>
+                </div>
+              </details>
+
+              <details className="group">
+                <summary className="flex justify-between items-center cursor-pointer py-2">
+                  <span className="font-medium text-gray-900">How It Fits</span>
+                  <span className="text-gray-400 group-open:rotate-180 transition-transform">
+                    ▼
+                  </span>
+                </summary>
+                <div className="pt-2 pb-4 text-sm text-gray-600">
+                  <p>
+                    True to size. For the best fit, we recommend using our size
+                    guide.
+                  </p>
+                </div>
+              </details>
+
+              <details className="group">
+                <summary className="flex justify-between items-center cursor-pointer py-2">
+                  <span className="font-medium text-gray-900">
+                    Fabric & Care
+                  </span>
+                  <span className="text-gray-400 group-open:rotate-180 transition-transform">
+                    ▼
+                  </span>
+                </summary>
+                <div className="pt-2 pb-4 text-sm text-gray-600">
+                  <p>
+                    <strong>Fabric:</strong> {product.details.fabric}
+                  </p>
+                  <p>
+                    <strong>Care:</strong> {product.details.care}
+                  </p>
+                </div>
+              </details>
+
+              <details className="group">
+                <summary className="flex justify-between items-center cursor-pointer py-2">
+                  <span className="font-medium text-gray-900">
+                    Shipping & Returns
+                  </span>
+                  <span className="text-gray-400 group-open:rotate-180 transition-transform">
+                    ▼
+                  </span>
+                </summary>
+                <div className="pt-2 pb-4 text-sm text-gray-600">
+                  <p>
+                    Free shipping on orders over $100. 30-day returns accepted.
+                  </p>
+                </div>
+              </details>
+            </div>
+          </div>
+        </div>
+
+        {/* You May Also Like */}
+        <div className="mt-16">
+          <div className="flex justify-between items-center mb-8">
+            <h2 className="text-2xl font-bold text-gray-900">
+              You May Also Like
+            </h2>
+            <Button
+              variant="ghost"
+              className="text-gray-600 hover:text-gray-900"
+            >
+              →
+            </Button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {relatedProducts.map((relatedProduct) => (
+              <Link
+                key={relatedProduct.id}
+                href={`/products/${relatedProduct.id}`}
+              >
+                <Card className="cursor-pointer group hover:shadow-lg transition-shadow">
+                  <CardContent className="p-0">
+                    <div className="relative">
+                      <div
+                        className={`${relatedProduct.image} h-64 rounded-t-lg flex items-center justify-center relative`}
+                      >
+                        <span className="text-gray-500 text-sm">
+                          Product Image
+                        </span>
+                        {relatedProduct.badge && (
+                          <Badge className="absolute top-4 left-4 bg-black text-white">
+                            {relatedProduct.badge}
+                          </Badge>
+                        )}
+                      </div>
+                    </div>
+
+                    <div className="p-4">
+                      <h3 className="font-medium text-gray-900 mb-2 group-hover:text-gray-600">
+                        {relatedProduct.name}
+                      </h3>
+                      <span className="font-bold text-gray-900">
+                        {relatedProduct.price}
+                      </span>
+                    </div>
+                  </CardContent>
+                </Card>
+              </Link>
+            ))}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
