@@ -13,8 +13,10 @@ import {
 import { Checkbox } from "@/components/ui/checkbox";
 import { Search } from "lucide-react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 export default function CheckoutPage() {
+  const router = useRouter();
   const [productData, setProductData] = useState<any>(null);
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -62,7 +64,12 @@ export default function CheckoutPage() {
       <header className="border-b bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-center h-16">
-            <h1 className="text-2xl font-bold text-black">knix</h1>
+            <h1
+              className="text-2xl font-bold text-black cursor-pointer hover:text-gray-700"
+              onClick={() => router.push("/")}
+            >
+              knix
+            </h1>
           </div>
         </div>
       </header>
@@ -183,7 +190,10 @@ export default function CheckoutPage() {
           {/* Right Column - Order Summary */}
           <div className="space-y-6">
             {/* Product */}
-            <div className="flex items-center space-x-4 p-4 border rounded-lg">
+            <div
+              className="flex items-center space-x-4 p-4 border rounded-lg cursor-pointer hover:bg-gray-50 transition-colors"
+              onClick={() => router.push(`/products/${productData.id}`)}
+            >
               <div className="relative">
                 <div className="w-16 h-16 bg-green-200 rounded-lg flex items-center justify-center">
                   <span className="text-xs text-gray-600">Product</span>
