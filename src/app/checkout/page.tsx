@@ -270,10 +270,11 @@ export default function CheckoutPage() {
 
             {/* Continue Button */}
             <Button
+              onClick={() => router.push("/success")}
               className="w-full py-3 text-lg font-medium text-white"
               style={{ backgroundColor: "#800020" }}
             >
-              Continue to shipping
+              Checkout
             </Button>
           </div>
         </div>
