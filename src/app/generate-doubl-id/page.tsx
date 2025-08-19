@@ -250,7 +250,7 @@ export default function GenerateDoublIdPage() {
                         Position Your Phone
                       </h3>
                       <p className="text-gray-600">
-                        Hold your phone at arm's length in landscape mode
+                        Hold your phone at arm's length in portrait mode
                       </p>
                     </div>
                   </div>
@@ -267,7 +267,7 @@ export default function GenerateDoublIdPage() {
                         Follow the Guide
                       </h3>
                       <p className="text-gray-600">
-                        Our AI will guide you through simple movements
+                        The app will guide you through simple movements or positions
                       </p>
                     </div>
                   </div>
