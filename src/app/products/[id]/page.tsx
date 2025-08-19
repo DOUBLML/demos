@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { useState, use } from "react";
+import { useState, use, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
@@ -173,6 +173,17 @@ export default function ProductDetailPage({
 
   const product = productData[resolvedParams.id as keyof typeof productData];
 
+  // Check for generated DOUBL ID when component mounts
+  useEffect(() => {
+    const generatedId = localStorage.getItem("generatedDoublId");
+    if (generatedId) {
+      setDoublId(generatedId);
+      setDoublIdOption("input");
+      // Clear the stored ID
+      localStorage.removeItem("generatedDoublId");
+    }
+  }, []);
+
   if (!product) {
     return <div>Product not found</div>;
   }
@@ -202,8 +213,14 @@ export default function ProductDetailPage({
   };
 
   const handleScanNow = () => {
-    // Handle scan functionality
-    console.log("Starting scan...");
+    // Save current product info and navigate to generate DOUBL ID
+    const productInfo = {
+      id: resolvedParams.id,
+      name: product.name,
+      returnUrl: window.location.pathname,
+    };
+    localStorage.setItem("productInfo", JSON.stringify(productInfo));
+    router.push("/generate-doubl-id");
   };
 
   return (
