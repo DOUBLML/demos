@@ -314,88 +314,38 @@ export default function ProductDetailPage({
         <div className="grid lg:grid-cols-2 gap-12">
           {/* Product Images */}
           <div className="space-y-6">
-            {/* Main Product Images */}
+            Main Product Images
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Front View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
-                <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
-                  alt={`${product.name} front view`}
-                  fill
-                  className="object-cover"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-100 to-amber-200 flex items-center justify-center">
+                  <span className="text-gray-600">Front View</span>
+                </div>
                 <div className="absolute top-4 right-4">
                   <ZoomIn className="h-6 w-6 text-gray-600" />
                 </div>
               </div>
 
-              {/* Detail View */}
+              {/* Product Detail/Back View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
-                <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
-                  alt={`${product.name} detail view`}
-                  fill
-                  className="object-cover"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-gray-100 to-gray-200 flex items-center justify-center">
+                  <span className="text-gray-600">Detail View</span>
+                </div>
               </div>
             </div>
-
             {/* Additional Views */}
             <div className="grid grid-cols-2 gap-4">
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
-                <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
-                  alt={`${product.name} back view`}
-                  fill
-                  className="object-cover"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-blue-100 to-blue-200 flex items-center justify-center">
+                  <span className="text-gray-600 text-sm">Back View</span>
+                </div>
               </div>
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
-                <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
-                  alt={`${product.name} side view`}
-                  fill
-                  className="object-cover"
-                />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-100 to-green-200 flex items-center justify-center">
+                  <span className="text-gray-600 text-sm">Side View</span>
+                </div>
               </div>
             </div>
-
             {/* Product Info Graphic */}
             <div className="bg-gray-50 rounded-lg p-6">
               <div className="text-center mb-6">

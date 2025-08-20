@@ -152,14 +152,13 @@ export default function KnixHomepage() {
       {/* Hero Section */}
       <section className="relative h-[600px] bg-gray-100 overflow-hidden">
         <div className="absolute inset-0">
-          <div className="w-full h-full bg-gradient-to-r from-gray-200 to-gray-300 flex items-center justify-center">
-            <div className="text-center text-gray-500">
-              {/* Placeholder for hero image */}
-              <div className="w-96 h-96 bg-red-400 rounded-lg mx-auto mb-4 flex items-center justify-center">
-                <span className="text-white">Hero Image Placeholder</span>
-              </div>
-            </div>
-          </div>
+          <Image
+            src="/doubl-demo-hero-image.png"
+            alt="DOUBL Demo Hero"
+            fill
+            className="object-cover"
+            priority
+          />
         </div>
 
         <div className="relative z-10 h-full flex items-center">
@@ -199,23 +198,29 @@ export default function KnixHomepage() {
 
         <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-6">
           {[
-            { name: "Kristen's Picks", image: "bg-blue-900" },
-            { name: "Best-Sellers", image: "bg-gray-800" },
-            { name: "New Arrivals", image: "bg-gray-200" },
-            { name: "Bras", image: "bg-amber-700" },
-            { name: "Leakproof Underwear", image: "bg-purple-300" },
-            { name: "Cotton & Modal Essentials", image: "bg-blue-600" },
-            { name: "Swim", image: "bg-green-400" },
+            { name: "Kristen's Picks", image: "kristens-picks" },
+            { name: "Best-Sellers", image: "best-sellers" },
+            { name: "New Arrivals", image: "new-arrivals" },
+            { name: "Bras", image: "bras" },
+            { name: "Leakproof Underwear", image: "leakproof-underwear" },
+            {
+              name: "Cotton & Modal Essentials",
+              image: "cotton-modal-essentials",
+            },
+            { name: "Swim", image: "swim" },
           ].map((category, index) => (
             <Card
               key={index}
               className="cursor-pointer group hover:shadow-lg transition-shadow"
             >
               <CardContent className="p-0">
-                <div
-                  className={`${category.image} h-48 rounded-t-lg flex items-center justify-center`}
-                >
-                  <span className="text-white text-sm">Image</span>
+                <div className="relative h-48 rounded-t-lg overflow-hidden">
+                  <Image
+                    src={`/${category.image}.png`}
+                    alt={category.name}
+                    fill
+                    className="object-cover"
+                  />
                 </div>
                 <div className="p-4">
                   <h3 className="font-medium text-gray-900 group-hover:text-gray-600">
@@ -233,44 +238,23 @@ export default function KnixHomepage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid md:grid-cols-2 gap-8">
             {/* Underwear Packs */}
-            <div className="relative bg-gray-100 rounded-lg overflow-hidden h-96">
-              <div className="absolute top-4 right-4 bg-black text-white rounded-full w-20 h-20 flex items-center justify-center">
-                <div className="text-center">
-                  <div className="text-xs">UP TO</div>
-                  <div className="text-sm font-bold">20% OFF</div>
-                </div>
-              </div>
-              <div className="p-8 h-full flex flex-col justify-end">
-                <div className="text-center mb-8">
-                  <div className="flex justify-center space-x-4 mb-4">
-                    <div className="w-16 h-16 bg-purple-300 rounded"></div>
-                    <div className="w-16 h-16 bg-gray-800 rounded"></div>
-                  </div>
-                </div>
-                <div className="text-center">
-                  <h3 className="text-3xl font-bold italic mb-2">Save on</h3>
-                  <p className="text-xl">underwear packs</p>
-                </div>
-              </div>
+            <div className="relative bg-gray-100 rounded-lg overflow-hidden h-[1000px]">
+              <Image
+                src="/save-on-underwear-packs.png"
+                alt="Save on underwear packs"
+                fill
+                className="object-cover object-center"
+              />
             </div>
 
             {/* Overnight Protection */}
-            <div className="relative bg-gray-200 rounded-lg overflow-hidden h-96">
-              <div className="absolute inset-0 bg-gradient-to-r from-blue-100 to-blue-200"></div>
-              <div className="relative p-8 h-full flex items-center">
-                <div className="max-w-xs">
-                  <h3 className="text-4xl font-bold text-white mb-4">
-                    Overnight leaks?
-                    <br />
-                    <span className="block">Not tonight.</span>
-                  </h3>
-                </div>
-                <div className="absolute right-8 top-8">
-                  <div className="w-48 h-48 bg-blue-300 rounded-lg flex items-center justify-center">
-                    <span className="text-white">Product Image</span>
-                  </div>
-                </div>
-              </div>
+            <div className="relative bg-gray-200 rounded-lg overflow-hidden h-[1000px]">
+              <Image
+                src="/overnight-leaks.png"
+                alt="Overnight leaks? Not tonight."
+                fill
+                className="object-cover object-center"
+              />
             </div>
           </div>
         </div>
@@ -291,12 +275,13 @@ export default function KnixHomepage() {
               <Card className="cursor-pointer group hover:shadow-lg transition-shadow">
                 <CardContent className="p-0">
                   <div className="relative">
-                    <div
-                      className={`${product.image} h-64 rounded-t-lg flex items-center justify-center relative`}
-                    >
-                      <span className="text-gray-500 text-sm">
-                        Product Image
-                      </span>
+                    <div className="relative h-80 rounded-t-lg overflow-hidden">
+                      <Image
+                        src={`/product-${index + 1}.png`}
+                        alt={product.name}
+                        fill
+                        className="object-cover"
+                      />
                       {product.badge && (
                         <Badge
                           className={`absolute top-4 left-4 ${
