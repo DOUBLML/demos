@@ -534,8 +534,14 @@ export default function SuccessPage() {
 
                     <Button
                       onClick={handleGoToPortal}
-                      className="w-full py-3 text-lg font-medium text-white"
+                      className="w-full py-3 text-lg font-medium text-white transition-all duration-200 hover:shadow-lg active:scale-95"
                       style={{ backgroundColor: "#800020" }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#5a0015")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#800020")
+                      }
                     >
                       <Settings className="h-5 w-5 mr-2" />
                       Access Partner Portal

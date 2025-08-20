@@ -483,8 +483,14 @@ export default function GenerateDoublIdPage() {
                 <div className="space-y-4">
                   <Button
                     onClick={handleBackToProduct}
-                    className="w-full py-3 text-lg font-medium text-white"
+                    className="w-full py-3 text-lg font-medium text-white transition-all duration-200 hover:shadow-lg active:scale-95"
                     style={{ backgroundColor: "#800020" }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#5a0015")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#800020")
+                    }
                   >
                     Complete Your Purchase
                   </Button>
