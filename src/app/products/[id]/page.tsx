@@ -597,13 +597,13 @@ export default function ProductDetailPage({
             </div>
 
             {/* Size Selection Modal Trigger */}
-            <div className="relative">
+            {/* <div className="relative">
               <div className="flex justify-center">
                 <ArrowDown className="h-8 w-8 text-purple-700 animate-bounce" />
               </div>
               <div className="bg-gray-50 border border-gray-200 rounded-lg p-6 mt-4">
                 <div className="grid md:grid-cols-2 gap-6">
-                  {/* Left Modal */}
+                  
                   <div className="bg-white rounded-lg p-4 shadow-sm">
                     <h4 className="font-semibold text-gray-900 mb-2">
                       Size Selection
@@ -646,7 +646,7 @@ export default function ProductDetailPage({
                     </div>
                   </div>
 
-                  {/* Right Modal */}
+                  
                   <div className="bg-white rounded-lg p-4 shadow-sm">
                     <h4 className="font-semibold text-gray-900 mb-2">
                       Size Selection
@@ -691,7 +691,7 @@ export default function ProductDetailPage({
                   </div>
                 </div>
               </div>
-            </div>
+            </div> */}
 
             {/* Shipping & Returns */}
             <div className="grid grid-cols-2 gap-4 py-4 border-t">
