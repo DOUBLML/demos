@@ -267,7 +267,7 @@ export default function GenerateDoublIdPage() {
                         Follow the Guide
                       </h3>
                       <p className="text-gray-600">
-                        The app will guide you through simple movements or positions
+                        The app will guide you through simple movements
                       </p>
                     </div>
                   </div>
