@@ -247,10 +247,25 @@ export default function GenerateDoublIdPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
-                        Position Your Phone
+                        Get Ready
+                      </h3>
+                      <p className="text-gray-600">Prepare your space</p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "#800020" }}
+                    >
+                      <span className="text-white font-bold">2</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        Choose Your Backdrop
                       </h3>
                       <p className="text-gray-600">
-                        Hold your phone at arm's length in portrait mode
+                        Find a plain background for best results
                       </p>
                     </div>
                   </div>
@@ -258,30 +273,50 @@ export default function GenerateDoublIdPage() {
                   <div className="flex items-center space-x-3">
                     <div
                       className="w-12 h-12 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: "#7c0347" }}
+                      style={{ backgroundColor: "#800020" }}
                     >
-                      <span className="text-white font-bold">2</span>
+                      <span className="text-white font-bold">3</span>
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
-                        Follow the Guide
+                        Position Your Phone
                       </h3>
                       <p className="text-gray-600">
-                        The app will guide you through simple movements
+                        Place 2 meters from wall at knee-to-hip height
                       </p>
                     </div>
                   </div>
 
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-700 font-bold">3</span>
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "#800020" }}
+                    >
+                      <span className="text-white font-bold">4</span>
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
-                        Get Your Perfect Fit
+                        Download the App
                       </h3>
                       <p className="text-gray-600">
-                        Receive your personalized DOUBL ID instantly
+                        Get the DOUBL app to start your scan
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center space-x-3">
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "#800020" }}
+                    >
+                      <span className="text-white font-bold">5</span>
+                    </div>
+                    <div>
+                      <h3 className="text-lg font-semibold text-gray-900">
+                        Get Your DOUBL ID
+                      </h3>
+                      <p className="text-gray-600">
+                        Receive your personalized fit profile instantly
                       </p>
                     </div>
                   </div>
