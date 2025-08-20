@@ -6,3 +6,11 @@ export async function generateStaticParams() {
     { id: "sculptrib-cotton-tank" },
   ];
 }
+
+export default function ProductLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
+  return children;
+}

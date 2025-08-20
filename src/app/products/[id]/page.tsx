@@ -1,6 +1,5 @@
 "use client";
 
-export { generateStaticParams } from './static-params';
 import Image from "next/image";
 import { useState, use, useEffect } from "react";
 import { Button } from "@/components/ui/button";
