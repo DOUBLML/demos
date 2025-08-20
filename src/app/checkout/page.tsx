@@ -207,8 +207,8 @@ export default function CheckoutPage() {
                   {productData.name}
                 </h3>
                 <p className="text-sm text-gray-600">
-                  {productData.selectedColor} /{" "}
-                  {productData.selectedSize || "S"}
+                  {productData.selectedColor}
+                  {/* {productData.selectedSize || "S"} */}
                 </p>
                 <p className="text-sm text-gray-600">Easy Returns</p>
               </div>

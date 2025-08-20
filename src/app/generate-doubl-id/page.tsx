@@ -345,10 +345,10 @@ export default function GenerateDoublIdPage() {
                       <div className="pt-4 border-t border-gray-200">
                         <div className="space-y-2">
                           <div className="text-xl font-semibold text-gray-900">
-                            John Doe
+                            Jane Doe
                           </div>
                           <div className="text-gray-600">
-                            john.doe@email.com
+                            jane.doe@email.com
                           </div>
                         </div>
                       </div>
