@@ -233,7 +233,7 @@ export default function SuccessPage() {
                   <div className="flex items-center space-x-3">
                     <div
                       className="w-12 h-12 rounded-full flex items-center justify-center"
-                      style={{ backgroundColor: "#7c0347" }}
+                      style={{ backgroundColor: "#800020" }}
                     >
                       <span className="text-white font-bold">2</span>
                     </div>
@@ -248,8 +248,11 @@ export default function SuccessPage() {
                   </div>
 
                   <div className="flex items-center space-x-3">
-                    <div className="w-12 h-12 rounded-full bg-gray-200 flex items-center justify-center">
-                      <span className="text-gray-700 font-bold">3</span>
+                    <div
+                      className="w-12 h-12 rounded-full flex items-center justify-center"
+                      style={{ backgroundColor: "#800020" }}
+                    >
+                      <span className="text-white font-bold">3</span>
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
@@ -330,12 +333,14 @@ export default function SuccessPage() {
                 </Card>
 
                 <div className="text-center">
-                  <Button 
-                    variant="outline" 
+                  <Button
+                    variant="outline"
                     onClick={videoEnded ? handleToggleView : handleSkipDemo}
                     className="text-gray-600 border-gray-300 hover:bg-gray-50"
                   >
-                    {showPortalInfo ? "View Customer Experience" : "View Partner Portal"}
+                    {showPortalInfo
+                      ? "View Customer Experience"
+                      : "View Partner Portal"}
                   </Button>
                 </div>
 
@@ -496,7 +501,7 @@ export default function SuccessPage() {
                       <div className="flex items-start space-x-3">
                         <div
                           className="w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold text-white"
-                          style={{ backgroundColor: "#7c0347" }}
+                          style={{ backgroundColor: "#800020" }}
                         >
                           ✓
                         </div>
@@ -510,7 +515,10 @@ export default function SuccessPage() {
                         </div>
                       </div>
                       <div className="flex items-start space-x-3">
-                        <div className="w-6 h-6 rounded-full bg-gray-300 flex items-center justify-center text-sm font-bold text-gray-600">
+                        <div
+                          className="w-6 h-6 rounded-full flex items-center justify-center text-sm font-bold text-white"
+                          style={{ backgroundColor: "#800020" }}
+                        >
                           ✓
                         </div>
                         <div>
