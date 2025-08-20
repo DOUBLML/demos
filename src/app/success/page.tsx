@@ -282,11 +282,11 @@ export default function SuccessPage() {
                         muted
                       >
                         <source
-                          src="/DOUBL TAILOR Demo - Made with Clipchamp.mp4"
+                          src="/demos/DOUBL TAILOR Demo - Made with Clipchamp.mp4"
                           type="video/mp4"
                         />
                         <source
-                          src="/videos/DOUBL TAILOR Demo - Made with Clipchamp.mp4"
+                          src="/demos/videos/DOUBL TAILOR Demo - Made with Clipchamp.mp4"
                           type="video/mp4"
                         />
                         Your browser does not support the video tag.
