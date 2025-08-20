@@ -14,6 +14,10 @@ const nextConfig: NextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  // Add this to be extra sure
+  experimental: {
+    forceSwcTransforms: true,
+  },
 };
 
 export default nextConfig;
