@@ -795,40 +795,82 @@ export default function ProductDetailPage({
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {relatedProducts.map((relatedProduct) => (
-              <Link
-                key={relatedProduct.id}
-                href={`/products/${relatedProduct.id}`}
-              >
-                <Card className="cursor-pointer group hover:shadow-lg transition-shadow">
-                  <CardContent className="p-0">
-                    <div className="relative">
-                      <div
-                        className={`${relatedProduct.image} h-64 rounded-t-lg flex items-center justify-center relative`}
-                      >
-                        <span className="text-gray-500 text-sm">
-                          Product Image
-                        </span>
-                        {relatedProduct.badge && (
-                          <Badge className="absolute top-4 left-4 bg-black text-white">
-                            {relatedProduct.badge}
-                          </Badge>
-                        )}
-                      </div>
-                    </div>
+            {Object.entries(productData)
+              .filter(([id]) => id !== resolvedParams.id)
+              .slice(0, 3)
+              .map(([id, productInfo], index) => {
+                const productIndex = Object.keys(productData).indexOf(id) + 1;
+                return (
+                  <Link key={id} href={`/products/${id}`}>
+                    <Card className="cursor-pointer group hover:shadow-lg transition-shadow">
+                      <CardContent className="p-0">
+                        <div className="relative">
+                          <div className="relative h-80 rounded-t-lg overflow-hidden">
+                            <Image
+                              src={`/product-${productIndex}.png`}
+                              alt={productInfo.name}
+                              fill
+                              className="object-cover object-top"
+                            />
+                            {productInfo.badge && (
+                              <Badge
+                                className={`absolute top-4 left-4 ${
+                                  productInfo.badge === "New"
+                                    ? "bg-gray-200 text-gray-800"
+                                    : productInfo.badge === "Kristen's Fave"
+                                    ? "bg-purple-100 text-purple-800"
+                                    : productInfo.badge === "Best Seller"
+                                    ? "bg-black text-white"
+                                    : "bg-blue-100 text-blue-800"
+                                }`}
+                              >
+                                {productInfo.badge}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
 
-                    <div className="p-4">
-                      <h3 className="font-medium text-gray-900 mb-2 group-hover:text-gray-600">
-                        {relatedProduct.name}
-                      </h3>
-                      <span className="font-bold text-gray-900">
-                        {relatedProduct.price}
-                      </span>
-                    </div>
-                  </CardContent>
-                </Card>
-              </Link>
-            ))}
+                        <div className="p-4">
+                          <h3 className="font-medium text-gray-900 mb-2 group-hover:text-gray-600">
+                            {productInfo.name}
+                          </h3>
+                          <div className="flex items-center space-x-2 mb-3">
+                            <span className="font-bold text-gray-900">
+                              {productInfo.price}
+                            </span>
+                            {productInfo.originalPrice && (
+                              <>
+                                <span className="text-sm text-gray-500 line-through">
+                                  {productInfo.originalPrice}
+                                </span>
+                                <span className="text-sm text-blue-600">
+                                  15% off
+                                </span>
+                              </>
+                            )}
+                          </div>
+                          <div className="flex items-center space-x-1">
+                            {productInfo.colors
+                              .slice(0, 5)
+                              .map((color, colorIndex) => (
+                                <div
+                                  key={colorIndex}
+                                  className="w-4 h-4 rounded-full border border-gray-300"
+                                  style={{ backgroundColor: color.value }}
+                                />
+                              ))}
+                            {productInfo.colors.length > 5 && (
+                              <span className="text-xs text-gray-500">
+                                +{productInfo.colors.length - 5}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </CardContent>
+                    </Card>
+                  </Link>
+                );
+              })}
           </div>
         </div>
       </div>
