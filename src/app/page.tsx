@@ -153,7 +153,7 @@ export default function KnixHomepage() {
       <section className="relative h-[600px] bg-gray-100 overflow-hidden">
         <div className="absolute inset-0">
           <Image
-            src="/doubl-demo-hero-image.png"
+            src="/demos/doubl-demo-hero-image.png"
             alt="DOUBL Demo Hero"
             fill
             className="object-cover"
@@ -216,7 +216,7 @@ export default function KnixHomepage() {
               <CardContent className="p-0">
                 <div className="relative h-48 rounded-t-lg overflow-hidden">
                   <Image
-                    src={`/${category.image}.png`}
+                    src={`/demos/${category.image}.png`}
                     alt={category.name}
                     fill
                     className="object-cover"
@@ -240,7 +240,7 @@ export default function KnixHomepage() {
             {/* Underwear Packs */}
             <div className="relative bg-gray-100 rounded-lg overflow-hidden h-[1000px]">
               <Image
-                src="/save-on-underwear-packs.png"
+                src="/demos/save-on-underwear-packs.png"
                 alt="Save on underwear packs"
                 fill
                 className="object-cover object-center"
@@ -250,7 +250,7 @@ export default function KnixHomepage() {
             {/* Overnight Protection */}
             <div className="relative bg-gray-200 rounded-lg overflow-hidden h-[1000px]">
               <Image
-                src="/overnight-leaks.png"
+                src="/demos/overnight-leaks.png"
                 alt="Overnight leaks? Not tonight."
                 fill
                 className="object-cover object-center"
@@ -277,7 +277,7 @@ export default function KnixHomepage() {
                   <div className="relative">
                     <div className="relative h-80 rounded-t-lg overflow-hidden">
                       <Image
-                        src={`/product-${index + 1}.png`}
+                        src={`/demos/product-${index + 1}.png`}
                         alt={product.name}
                         fill
                         className="object-cover"

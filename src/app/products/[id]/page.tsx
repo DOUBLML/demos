@@ -321,13 +321,13 @@ export default function ProductDetailPage({
                 <Image
                   src={
                     resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
+                      ? "/demos/product-1.png"
                       : resolvedParams.id ===
                         "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
+                      ? "/demos/product-2.png"
                       : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
+                      ? "/demos/product-3.png"
+                      : "/demos/product-4.png"
                   }
                   alt={`${product.name} front view`}
                   fill
@@ -343,13 +343,13 @@ export default function ProductDetailPage({
                 <Image
                   src={
                     resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
+                      ? "/demos/product-1.png"
                       : resolvedParams.id ===
                         "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
+                      ? "/demos/product-2.png"
                       : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
+                      ? "/demos/product-3.png"
+                      : "/demos/product-4.png"
                   }
                   alt={`${product.name} detail view`}
                   fill
@@ -364,15 +364,15 @@ export default function ProductDetailPage({
                 <Image
                   src={
                     resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
+                      ? "/demos/product-1.png"
                       : resolvedParams.id ===
                         "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
+                      ? "/demos/product-2.png"
                       : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
+                      ? "/demos/product-3.png"
+                      : "/demos/product-4.png"
                   }
-                  alt={`${product.name} back view`}
+                  alt={`${product.name} detail view`}
                   fill
                   className="object-cover"
                 />
@@ -381,15 +381,15 @@ export default function ProductDetailPage({
                 <Image
                   src={
                     resolvedParams.id === "revolution-scoop-bra"
-                      ? "/product-1.png"
+                      ? "/demos/product-1.png"
                       : resolvedParams.id ===
                         "leakproof-ultrathin-no-show-bikini"
-                      ? "/product-2.png"
+                      ? "/demos/product-2.png"
                       : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/product-3.png"
-                      : "/product-4.png"
+                      ? "/demos/product-3.png"
+                      : "/demos/product-4.png"
                   }
-                  alt={`${product.name} side view`}
+                  alt={`${product.name} detail view`}
                   fill
                   className="object-cover"
                 />
@@ -807,7 +807,7 @@ export default function ProductDetailPage({
                         <div className="relative">
                           <div className="relative h-80 rounded-t-lg overflow-hidden">
                             <Image
-                              src={`/product-${productIndex}.png`}
+                              src={`/demos/product-${productIndex}.png`}
                               alt={productInfo.name}
                               fill
                               className="object-cover object-top"
