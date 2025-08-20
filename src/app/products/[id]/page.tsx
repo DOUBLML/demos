@@ -523,8 +523,14 @@ export default function ProductDetailPage({
                   </div>
                   <Button
                     onClick={handleApplyId}
-                    className="w-full text-white"
+                    className="w-full text-white transition-all duration-200 hover:shadow-lg active:scale-95"
                     style={{ backgroundColor: "#7c0347" }}
+                    onMouseEnter={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#5a0233")
+                    }
+                    onMouseLeave={(e) =>
+                      (e.currentTarget.style.backgroundColor = "#7c0347")
+                    }
                     disabled={!doublId}
                   >
                     Apply ID
@@ -540,14 +546,23 @@ export default function ProductDetailPage({
                   <div className="flex gap-3">
                     <Button
                       onClick={handleScanNow}
-                      className="text-white"
+                      className="text-white transition-all duration-200 hover:shadow-lg active:scale-95"
                       style={{ backgroundColor: "#7c0347" }}
+                      onMouseEnter={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#5a0233")
+                      }
+                      onMouseLeave={(e) =>
+                        (e.currentTarget.style.backgroundColor = "#7c0347")
+                      }
                     >
                       SCAN NOW
                     </Button>
                     <Button
                       variant="outline"
-                      className="text-black border-gray-400 hover:bg-gray-50"
+                      className="text-black border-gray-400 transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 active:scale-95"
+                      onClick={() => {
+                        /* Add tooltip or modal functionality here if needed */
+                      }}
                     >
                       What is DOUBL ID?
                     </Button>
@@ -581,8 +596,14 @@ export default function ProductDetailPage({
               </div>
 
               <Button
-                className="w-full text-white py-3 text-lg font-medium"
+                className="w-full text-white py-3 text-lg font-medium transition-all duration-200 hover:shadow-lg active:scale-95"
                 style={{ backgroundColor: "#800020" }}
+                onMouseEnter={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#5a0015")
+                }
+                onMouseLeave={(e) =>
+                  (e.currentTarget.style.backgroundColor = "#800020")
+                }
               >
                 ADD TO BAG - {product.price}
               </Button>
