@@ -1,4 +1,4 @@
-'use client'
+"use client";
 
 import React, { useMemo, useState } from "react";
 import {
@@ -13,6 +13,7 @@ import {
   ShoppingCart,
   Users,
   Settings,
+  Database,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -26,6 +27,19 @@ import {
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { useRouter } from "next/navigation";
+import {
+  LineChart,
+  Line,
+  CartesianGrid,
+  XAxis,
+  YAxis,
+  Tooltip,
+  ResponsiveContainer,
+  BarChart,
+  Bar,
+  ScatterChart,
+  Scatter,
+} from "recharts";
 
 // Mock Data
 const MOCK_BRANDS = [
@@ -264,13 +278,13 @@ function SkusPage() {
       render: (v: string) => (
         <Badge
           className={
-            v === "Active" 
-              ? "bg-green-100 text-green-800" 
-              : v === "Pilot" 
-              ? "text-white" 
+            v === "Active"
+              ? "bg-green-100 text-green-800"
+              : v === "Pilot"
+              ? "text-white"
               : "bg-gray-100 text-gray-800"
           }
-          style={v === "Pilot" ? { backgroundColor: '#7c0347' } : {}}
+          style={v === "Pilot" ? { backgroundColor: "#7c0347" } : {}}
         >
           {v}
         </Badge>
@@ -552,7 +566,7 @@ function OrdersPage() {
               ? "text-white"
               : "bg-gray-100 text-gray-800"
           }
-          style={v === "In Production" ? { backgroundColor: '#7c0347' } : {}}
+          style={v === "In Production" ? { backgroundColor: "#7c0347" } : {}}
         >
           {v}
         </Badge>
@@ -698,6 +712,230 @@ function ApiKeysPage() {
   );
 }
 
+function ReportsPage() {
+  // Mock data for reports
+  const orders = [
+    { date: "2025-06-01", sku: "BRA001", orders: 42, returns: 0, sales: 4200 },
+    { date: "2025-06-08", sku: "BRA002", orders: 65, returns: 0, sales: 6500 },
+    { date: "2025-06-15", sku: "BRA003", orders: 57, returns: 1, sales: 5700 },
+    { date: "2025-06-22", sku: "BRA001", orders: 71, returns: 0, sales: 7100 },
+    { date: "2025-06-29", sku: "BRA004", orders: 88, returns: 0, sales: 8800 },
+    { date: "2025-07-06", sku: "BRA002", orders: 93, returns: 0, sales: 9300 },
+    {
+      date: "2025-07-13",
+      sku: "BRA005",
+      orders: 104,
+      returns: 0,
+      sales: 10400,
+    },
+  ];
+
+  const customersCohorts = [
+    { week: "Jun 1", new: 28, existing: 14 },
+    { week: "Jun 8", new: 36, existing: 29 },
+    { week: "Jun 15", new: 30, existing: 27 },
+    { week: "Jun 22", new: 40, existing: 31 },
+    { week: "Jun 29", new: 45, existing: 43 },
+    { week: "Jul 6", new: 48, existing: 45 },
+    { week: "Jul 13", new: 52, existing: 52 },
+  ];
+
+  const bodyMeasurements = Array.from({ length: 200 }).map((_, i) => {
+    const under = 60 + Math.random() * 40;
+    const bust = under + 4 + Math.random() * 25;
+    return {
+      id: i + 1,
+      underbust: Number(under.toFixed(1)),
+      bust: Number(bust.toFixed(1)),
+    };
+  });
+
+  const BASELINE_RETURN_RATE = 0.3;
+
+  const returnsMeta = useMemo(() => {
+    const totalOrders = orders.reduce((a, b) => a + b.orders, 0);
+    const baselineReturns = totalOrders * BASELINE_RETURN_RATE;
+    const actualReturns = orders.reduce((a, b) => a + b.returns, 0);
+    const avoided = Math.max(baselineReturns - actualReturns, 0);
+    const avoidedPct =
+      baselineReturns === 0 ? 0 : (avoided / baselineReturns) * 100;
+    return { totalOrders, baselineReturns, actualReturns, avoided, avoidedPct };
+  }, []);
+
+  const downloadCSV = (rows: any[], filename: string) => {
+    const headers = Object.keys(rows[0] || {});
+    const csv = [
+      headers.join(","),
+      ...rows.map((r) => headers.map((h) => r[h]).join(",")),
+    ].join("\\n");
+    const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+  };
+
+  const COLORS = ["#0f766e", "#334155", "#7c3aed", "#f59e0b"];
+
+  return (
+    <div className="grid grid-cols-1 gap-6">
+      {/* KPI Row */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Database className="w-4 h-4" />
+              <span className="text-sm font-semibold tracking-tight">
+                Returns Avoided
+              </span>
+            </div>
+            <div className="space-y-2">
+              <div className="text-3xl font-semibold">
+                {returnsMeta.avoided.toFixed(0)}
+              </div>
+              <div className="text-sm text-gray-500">
+                vs. baseline {Math.round(BASELINE_RETURN_RATE * 100)}% (actual{" "}
+                {returnsMeta.actualReturns})
+              </div>
+              <div className="text-sm">
+                {returnsMeta.avoidedPct.toFixed(1)}% fewer returns
+              </div>
+              <Button
+                variant="outline"
+                size="sm"
+                onClick={() => downloadCSV(orders, "returns_report.csv")}
+              >
+                <Download className="h-4 w-4 mr-1" /> Export
+              </Button>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <Users className="w-4 h-4" />
+              <span className="text-sm font-semibold tracking-tight">
+                New vs Existing Customers
+              </span>
+            </div>
+            <div className="h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <BarChart data={customersCohorts}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="week" />
+                  <YAxis />
+                  <Tooltip />
+                  <Bar dataKey="new" stackId="a" fill={COLORS[0]} name="New" />
+                  <Bar
+                    dataKey="existing"
+                    stackId="a"
+                    fill={COLORS[1]}
+                    name="Existing"
+                  />
+                </BarChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+
+        <Card>
+          <CardContent className="p-6">
+            <div className="flex items-center gap-2 mb-3">
+              <ShoppingCart className="w-4 h-4" />
+              <span className="text-sm font-semibold tracking-tight">
+                Orders (Weekly)
+              </span>
+            </div>
+            <div className="h-48">
+              <ResponsiveContainer width="100%" height="100%">
+                <LineChart data={orders}>
+                  <CartesianGrid strokeDasharray="3 3" />
+                  <XAxis dataKey="date" />
+                  <YAxis />
+                  <Tooltip />
+                  <Line type="monotone" dataKey="orders" stroke={COLORS[2]} />
+                </LineChart>
+              </ResponsiveContainer>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
+
+      {/* Second Row - Sales by SKU */}
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Package className="w-4 h-4" />
+            <span className="text-sm font-semibold tracking-tight">
+              Sales by SKU
+            </span>
+          </div>
+          <div className="h-64">
+            <ResponsiveContainer width="100%" height="100%">
+              <BarChart data={orders}>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis dataKey="sku" />
+                <YAxis />
+                <Tooltip />
+                <Bar dataKey="sales" fill={COLORS[2]} name="Sales ($)" />
+              </BarChart>
+            </ResponsiveContainer>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Body Measurements */}
+      <Card>
+        <CardContent className="p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Settings className="w-4 h-4" />
+            <span className="text-sm font-semibold tracking-tight">
+              Customer Body Measurements (Bust vs Underbust)
+            </span>
+          </div>
+          <div className="h-80">
+            <ResponsiveContainer width="100%" height="100%">
+              <ScatterChart>
+                <CartesianGrid strokeDasharray="3 3" />
+                <XAxis
+                  type="number"
+                  dataKey="underbust"
+                  name="Underbust (cm)"
+                />
+                <YAxis type="number" dataKey="bust" name="Bust (cm)" />
+                <Tooltip cursor={{ strokeDasharray: "3 3" }} />
+                <Scatter
+                  data={bodyMeasurements}
+                  fill={COLORS[3]}
+                  name="Customers"
+                />
+              </ScatterChart>
+            </ResponsiveContainer>
+          </div>
+          <p className="mt-3 text-sm text-gray-600">
+            This wider distribution highlights fit opportunities across
+            bust/underbust ranges beyond current retail sizing.
+          </p>
+          <div className="mt-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() =>
+                downloadCSV(bodyMeasurements, "body_measurements.csv")
+              }
+            >
+              <Download className="h-4 w-4 mr-1" /> Export
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+}
+
 // Navigation
 const NAV = [
   { key: "skus", label: "SKUs", icon: Package, component: SkusPage },
@@ -708,6 +946,7 @@ const NAV = [
     component: CustomersPage,
   },
   { key: "orders", label: "Orders", icon: ShoppingCart, component: OrdersPage },
+  { key: "reports", label: "Reports", icon: Database, component: ReportsPage },
   {
     key: "apikeys",
     label: "API & Settings",
@@ -734,12 +973,15 @@ export default function DoublB2BPortal() {
           <div className="flex items-center gap-3">
             <Button
               variant="ghost"
-              onClick={() => router.push('/')}
+              onClick={() => router.push("/")}
               className="text-gray-700 hover:text-gray-900 mr-2"
             >
               ← Back to Home
             </Button>
-            <div className="w-8 h-8 rounded-2xl flex items-center justify-center" style={{ backgroundColor: '#800020' }}>
+            <div
+              className="w-8 h-8 rounded-2xl flex items-center justify-center"
+              style={{ backgroundColor: "#800020" }}
+            >
               <span className="text-white font-bold text-sm">D</span>
             </div>
             <div>
@@ -777,11 +1019,11 @@ export default function DoublB2BPortal() {
                   onClick={() => setActive(n.key)}
                   variant={active === n.key ? "default" : "ghost"}
                   className={`w-full justify-start mb-1 ${
-                    active === n.key 
-                      ? 'text-white hover:text-gray-100' 
-                      : 'text-gray-700 hover:text-gray-900'
+                    active === n.key
+                      ? "text-white hover:text-gray-100"
+                      : "text-gray-700 hover:text-gray-900"
                   }`}
-                  style={active === n.key ? { backgroundColor: '#800020' } : {}}
+                  style={active === n.key ? { backgroundColor: "#800020" } : {}}
                   size="sm"
                 >
                   <n.icon className="w-4 h-4 mr-2" />
@@ -797,12 +1039,12 @@ export default function DoublB2BPortal() {
 
         <main>
           <div className="mb-6 grid md:grid-cols-3 gap-4">
-            <Card className="border-l-4" style={{ borderLeftColor: '#800020' }}>
+            <Card className="border-l-4" style={{ borderLeftColor: "#800020" }}>
               <CardContent className="p-4">
                 <Stat label="Brand" value={brandName} sub="Connected" />
               </CardContent>
             </Card>
-            <Card className="border-l-4" style={{ borderLeftColor: '#7c0347' }}>
+            <Card className="border-l-4" style={{ borderLeftColor: "#7c0347" }}>
               <CardContent className="p-4">
                 <Stat label="Active Customers" value={MOCK_CUSTOMERS.length} />
               </CardContent>
