@@ -403,6 +403,43 @@ function CustomersPage() {
               <Stat label="Created" value={selected.createdAt} />
             </CardContent>
           </Card>
+          <Card>
+            <CardContent className="p-4">
+              <div className="flex flex-col">
+                <span className="text-xs text-gray-500">Customer Type</span>
+                <div className="flex items-center space-x-2">
+                  <span className="text-xl font-semibold">
+                    {selected.id === "CUS-1024" ? "New" : "Existing"}
+                  </span>
+                  {/* <Badge
+                    className={
+                      selected.id === "CUS-1024"
+                        ? "bg-green-100 text-green-800"
+                        : "bg-blue-100 text-blue-800"
+                    }
+                  >
+                    {selected.id === "CUS-1024"
+                      ? "First Purchase"
+                      : "Repeat Customer"}
+                  </Badge> */}
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+          <Card>
+            <CardContent className="p-4">
+              <Stat
+                label="Total Orders"
+                value={
+                  selected.id === "CUS-1024"
+                    ? "1"
+                    : selected.id === "CUS-1025"
+                    ? "3"
+                    : "2"
+                }
+              />
+            </CardContent>
+          </Card>
         </div>
         <Card className="mb-4">
           <CardContent className="p-4">
