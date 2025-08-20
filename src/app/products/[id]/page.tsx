@@ -1,5 +1,6 @@
 "use client";
 
+export { generateStaticParams } from './static-params';
 import Image from "next/image";
 import { useState, use, useEffect } from "react";
 import { Button } from "@/components/ui/button";
@@ -16,16 +17,6 @@ import { Input } from "@/components/ui/input";
 import { Minus, Plus, ChevronRight, ZoomIn, ArrowDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-
-export async function generateStaticParams() {
-  // Return all the product IDs that should be statically generated
-  return [
-    { id: "revolution-scoop-bra" },
-    { id: "leakproof-ultrathin-no-show-bikini" },
-    { id: "revolution-v-neck-bra" },
-    { id: "sculptrib-cotton-tank" },
-  ];
-}
 
 // Mock product data - in a real app this would come from an API
 const productData = {
