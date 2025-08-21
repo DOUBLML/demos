@@ -803,8 +803,22 @@ function ReportsPage() {
     const headers = Object.keys(rows[0] || {});
     const csv = [
       headers.join(","),
-      ...rows.map((r) => headers.map((h) => r[h]).join(",")),
-    ].join("\\n");
+      ...rows.map((r) =>
+        headers
+          .map((h) => {
+            const value = r[h];
+            // Handle values that might contain commas or quotes
+            if (
+              typeof value === "string" &&
+              (value.includes(",") || value.includes('"'))
+            ) {
+              return `"${value.replace(/"/g, '""')}"`;
+            }
+            return value;
+          })
+          .join(",")
+      ),
+    ].join("\n"); // Changed from \\n to \n
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");
@@ -839,6 +853,28 @@ function ReportsPage() {
               <div className="text-sm">
                 {returnsMeta.avoidedPct.toFixed(1)}% fewer returns
               </div>
+
+              {/* Assumptions & Method */}
+              <div className="mt-4 p-3 bg-gray-50 rounded-lg">
+                <h4 className="text-xs font-semibold text-gray-900 mb-2">
+                  Returns Avoided — Assumptions & Method
+                </h4>
+                <ul className="text-xs text-gray-600 space-y-1">
+                  <li>
+                    • Baseline return rate is configurable per partner (default
+                    30%).
+                  </li>
+                  <li>
+                    • Returns avoided = (Orders × Baseline) − Actual returns.
+                  </li>
+                  <li>
+                    • For made-to-measure, we expect near-zero returns; use this
+                    metric to quantify the margin impact versus size-based
+                    workflows.
+                  </li>
+                </ul>
+              </div>
+
               <Button
                 variant="outline"
                 size="sm"
