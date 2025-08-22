@@ -15,6 +15,16 @@ import { Search } from "lucide-react";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 
+const getProductIndex = (productId: string) => {
+  const productIds = [
+    "leakproof-classic-one-piece-swimsuit",
+    "ruched-deep-v-bikini-top",
+    "sculpt-wrap-one-piece-swimsuit",
+    "sculpt-ruched-bikini-top",
+  ];
+  return productIds.indexOf(productId) + 1;
+};
+
 export default function CheckoutPage() {
   const router = useRouter();
   const [productData, setProductData] = useState<any>(null);
@@ -195,8 +205,15 @@ export default function CheckoutPage() {
               onClick={() => router.push(`/products/${productData.id}`)}
             >
               <div className="relative">
-                <div className="w-16 h-16 bg-green-200 rounded-lg flex items-center justify-center">
-                  <span className="text-xs text-gray-600">Product</span>
+                <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden">
+                  {productData && (
+                    <Image
+                      src={`/product-${getProductIndex(productData.id)}.png`}
+                      alt={productData.name}
+                      fill
+                      className="object-cover"
+                    />
+                  )}
                 </div>
                 <div className="absolute -top-2 -right-2 bg-gray-600 text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
                   1
