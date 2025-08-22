@@ -43,8 +43,8 @@ import {
 
 // Mock Data
 const MOCK_BRANDS = [
-  { id: "lululemon", name: "Lululemon" },
   { id: "knix", name: "Knix" },
+  { id: "lululemon", name: "Lululemon" },
   { id: "left-on-friday", name: "Left on Friday" },
 ];
 

@@ -201,10 +201,10 @@ export default function SuccessPage() {
                           </span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">Size:</span>
+                          {/* <span className="text-gray-600">Size:</span>
                           <span className="font-medium">
                             {orderData.selectedSize}
-                          </span>
+                          </span> */}
                         </div>
                       </div>
                     )}
