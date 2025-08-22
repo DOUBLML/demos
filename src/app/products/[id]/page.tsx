@@ -17,115 +17,124 @@ import { Minus, Plus, ChevronRight, ZoomIn, ArrowDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+// Helper function to get product index for dynamic images
+const getProductIndex = (productId: string) => {
+  const productIds = [
+    "leakproof-classic-one-piece-swimsuit",
+    "ruched-deep-v-bikini-top", 
+    "sculpt-wrap-one-piece-swimsuit",
+    "sculpt-ruched-bikini-top"
+  ];
+  return productIds.indexOf(productId) + 1;
+};
+
 // Mock product data - in a real app this would come from an API
 const productData = {
-  "revolution-scoop-bra": {
-    name: "Revolution Scoop Bra",
-    price: "$68.00",
-    originalPrice: null,
-    badge: "New",
-    description:
-      "Feels like a second skin, stays invisible under clothes. The #1 rated, wireless support of the best-selling Revolution bra, with a scoop.",
-    colors: [
-      { name: "Black", value: "#000000" },
-      { name: "Nude", value: "#D4A574" },
-      { name: "Brown", value: "#8B4513" },
-      { name: "Pink", value: "#F4C2C2" },
-      { name: "Cheetah Print", value: "#DEB887", isSelected: true },
-    ],
-    features: [
-      "Wireless, supportive, and incredibly wearable",
-      "Versatile scoop neckline with invisible bonded construction",
-      "Wireless support with 3D printed stabilizers",
-      "BeyondSmooth™ 4-way stretch fabric is bonded not stitched, so the bra stays smooth under clothes",
-      "Lower strap placement for better, no-show fit",
-      "Customize your straps: straight or racerback",
-    ],
-    details: {
-      fabric: "78% Nylon, 22% Elastane",
-      care: "Machine wash cold, lay flat to dry",
-      support: "Light to medium support",
-    },
-  },
-  "leakproof-ultrathin-no-show-bikini": {
-    name: "Leakproof UltraThin No-Show Bikini",
-    price: "$27.00",
-    originalPrice: null,
-    badge: "Kristen's Fave",
-    description:
-      "Ultra-thin protection that feels like regular underwear. Perfect for light days, spotting, and backup protection.",
-    colors: [
-      { name: "Nude", value: "#D4A574", isSelected: true },
-      { name: "Black", value: "#000000" },
-      { name: "Brown", value: "#8B4513" },
-      { name: "Pink", value: "#F4C2C2" },
-      { name: "Blue", value: "#4682B4" },
-      { name: "Purple", value: "#DDA0DD" },
-    ],
-    features: [
-      "Ultra-thin 2mm gusset technology",
-      "Holds up to 2 teaspoons of fluid",
-      "No-show design with bonded edges",
-      "Breathable and moisture-wicking",
-      "Perfect for light days and backup protection",
-    ],
-    details: {
-      fabric: "Body: 79% Nylon, 21% Elastane. Gusset: Multiple layers",
-      care: "Machine wash cold, lay flat to dry",
-      absorption: "Light flow (2 tsp)",
-    },
-  },
-  "revolution-v-neck-bra": {
-    name: "Revolution V-Neck Bra",
-    price: "$68.00",
+  "leakproof-classic-one-piece-swimsuit": {
+    name: "Leakproof Classic One Piece Swimsuit",
+    price: "$125.00",
     originalPrice: null,
     badge: "Best Seller",
     description:
-      "The original Revolution bra with a flattering V-neckline. Wireless support that stays invisible under clothes.",
+      "The perfect blend of comfort and protection. Our signature leakproof technology meets swimwear innovation for confident water activities.",
     colors: [
-      { name: "Black", value: "#000000", isSelected: true },
-      { name: "Nude", value: "#D4A574" },
-      { name: "White", value: "#F5F5DC" },
-      { name: "Brown", value: "#8B4513" },
-      { name: "Purple", value: "#800080" },
-      { name: "Tan", value: "#654321" },
+      { name: "Cocoa", value: "#8B4513", isSelected: true },
+      { name: "Black", value: "#000000" },
+      { name: "Navy", value: "#2F4F4F" },
+      { name: "Purple", value: "#9932CC" },
     ],
     features: [
-      "Wireless, supportive, and incredibly wearable",
-      "Flattering V-neckline design",
-      "Wireless support with 3D printed stabilizers",
-      "BeyondSmooth™ 4-way stretch fabric",
-      "Bonded construction for no-show fit",
+      "Leakproof technology for added confidence",
+      "Classic silhouette with modern fit",
+      "Quick-dry fabric technology",
+      "Built-in shelf bra for support",
+      "Chlorine and saltwater resistant",
+      "UPF 50+ sun protection",
     ],
     details: {
-      fabric: "78% Nylon, 22% Elastane",
-      care: "Machine wash cold, lay flat to dry",
-      support: "Light to medium support",
+      fabric: "82% Nylon, 18% Elastane",
+      care: "Rinse after use, machine wash cold, lay flat to dry",
+      protection: "Leakproof gusset technology",
     },
   },
-  "sculptrib-cotton-tank": {
-    name: "SculptRib™ Cotton Tank",
-    price: "$40.80",
-    originalPrice: "$48.00",
-    badge: "Joanna's Pick",
+  "ruched-deep-v-bikini-top": {
+    name: "Ruched Deep V Bikini Top",
+    price: "$65.00",
+    originalPrice: null,
+    badge: "New Silhouette",
     description:
-      "Ribbed cotton tank with a sculpting fit. Perfect for layering or wearing on its own.",
+      "A flattering deep V-neck with ruched detailing for a customizable fit. The perfect bikini top for sun-soaked days.",
     colors: [
-      { name: "Nude", value: "#D4A574", isSelected: true },
+      { name: "Lime", value: "#9ACD32", isSelected: true },
       { name: "Black", value: "#000000" },
-      { name: "White", value: "#F5F5DC" },
+      { name: "White", value: "#FFFFFF" },
+      { name: "Navy", value: "#2F4F4F" },
+      { name: "Leopard Print", value: "#F0E68C" },
+      { name: "Purple", value: "#9932CC" },
     ],
     features: [
-      "100% cotton ribbed fabric",
-      "Sculpting fit through the body",
-      "Perfect for layering",
-      "Soft and breathable",
-      "Machine washable",
+      "Deep V-neckline for a flattering look",
+      "Ruched detailing allows for customizable fit",
+      "Adjustable tie straps",
+      "Removable padding for versatile styling",
+      "Quick-dry fabric technology",
+      "Chlorine and saltwater resistant",
     ],
     details: {
-      fabric: "100% Cotton",
-      care: "Machine wash cold, tumble dry low",
-      fit: "Fitted through body",
+      fabric: "80% Nylon, 20% Elastane",
+      care: "Rinse after use, machine wash cold, lay flat to dry",
+      support: "Light to medium support with removable padding",
+    },
+  },
+  "sculpt-wrap-one-piece-swimsuit": {
+    name: "Sculpt Wrap One Piece Swimsuit",
+    price: "$135.00",
+    originalPrice: null,
+    badge: "New Silhouette",
+    description:
+      "A sophisticated wrap design that sculpts and flatters your silhouette. The perfect one-piece for poolside elegance.",
+    colors: [
+      { name: "Black", value: "#000000", isSelected: true },
+      { name: "Purple", value: "#9932CC" },
+      { name: "Leopard Print", value: "#F0E68C" },
+    ],
+    features: [
+      "Wrap design creates a flattering silhouette",
+      "Sculpting fit through the torso",
+      "Adjustable wrap tie for custom fit",
+      "Built-in shelf bra with removable padding",
+      "Quick-dry fabric technology",
+      "UPF 50+ sun protection",
+    ],
+    details: {
+      fabric: "82% Nylon, 18% Elastane",
+      care: "Rinse after use, machine wash cold, lay flat to dry",
+      fit: "True to size with adjustable wrap styling",
+    },
+  },
+  "sculpt-ruched-bikini-top": {
+    name: "Sculpt Ruched Bikini Top",
+    price: "$70.00",
+    originalPrice: null,
+    badge: "New Silhouette",
+    description:
+      "Features our signature sculpting technology with ruched detailing. A bikini top that flatters and supports in equal measure.",
+    colors: [
+      { name: "Leopard Print", value: "#F0E68C", isSelected: true },
+      { name: "Black", value: "#000000" },
+    ],
+    features: [
+      "Sculpting fit technology",
+      "Ruched detailing for texture and style",
+      "Supportive underwire construction",
+      "Adjustable straps for perfect fit",
+      "Quick-dry fabric technology",
+      "Chlorine and saltwater resistant",
+    ],
+    details: {
+      fabric: "80% Nylon, 20% Elastane",
+      care: "Rinse after use, machine wash cold, lay flat to dry",
+      support: "Medium to full support with underwire",
     },
   },
 };
@@ -319,16 +328,7 @@ export default function ProductDetailPage({
               {/* Front View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/demos/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/demos/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/demos/product-3.png"
-                      : "/demos/product-4.png"
-                  }
+                  src={`/demos/product-${getProductIndex(resolvedParams.id)}.png`}
                   alt={`${product.name} front view`}
                   fill
                   className="object-cover"
@@ -341,16 +341,7 @@ export default function ProductDetailPage({
               {/* Detail View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/demos/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/demos/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/demos/product-3.png"
-                      : "/demos/product-4.png"
-                  }
+                  src={`/demos/product-${getProductIndex(resolvedParams.id)}-1.png`}
                   alt={`${product.name} detail view`}
                   fill
                   className="object-cover"
@@ -362,34 +353,16 @@ export default function ProductDetailPage({
             <div className="grid grid-cols-2 gap-4">
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/demos/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/demos/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/demos/product-3.png"
-                      : "/demos/product-4.png"
-                  }
-                  alt={`${product.name} detail view`}
+                  src={`/demos/product-${getProductIndex(resolvedParams.id)}-2.png`}
+                  alt={`${product.name} back view`}
                   fill
                   className="object-cover"
                 />
               </div>
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "revolution-scoop-bra"
-                      ? "/demos/product-1.png"
-                      : resolvedParams.id ===
-                        "leakproof-ultrathin-no-show-bikini"
-                      ? "/demos/product-2.png"
-                      : resolvedParams.id === "revolution-v-neck-bra"
-                      ? "/demos/product-3.png"
-                      : "/demos/product-4.png"
-                  }
-                  alt={`${product.name} detail view`}
+                  src={`/demos/product-${getProductIndex(resolvedParams.id)}-3.png`}
+                  alt={`${product.name} side view`}
                   fill
                   className="object-cover"
                 />
