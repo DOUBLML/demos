@@ -208,7 +208,9 @@ export default function CheckoutPage() {
                 <div className="w-16 h-16 bg-gray-100 rounded-lg overflow-hidden">
                   {productData && (
                     <Image
-                      src={`/product-${getProductIndex(productData.id)}.png`}
+                      src={`/demos/product-${getProductIndex(
+                        productData.id
+                      )}.png`}
                       alt={productData.name}
                       fill
                       className="object-cover"

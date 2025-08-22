@@ -21,9 +21,9 @@ import { useRouter } from "next/navigation";
 const getProductIndex = (productId: string) => {
   const productIds = [
     "leakproof-classic-one-piece-swimsuit",
-    "ruched-deep-v-bikini-top", 
+    "ruched-deep-v-bikini-top",
     "sculpt-wrap-one-piece-swimsuit",
-    "sculpt-ruched-bikini-top"
+    "sculpt-ruched-bikini-top",
   ];
   return productIds.indexOf(productId) + 1;
 };
@@ -328,7 +328,9 @@ export default function ProductDetailPage({
               {/* Front View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={`/demos/product-${getProductIndex(resolvedParams.id)}.png`}
+                  src={`/demos/product-${getProductIndex(
+                    resolvedParams.id
+                  )}.png`}
                   alt={`${product.name} front view`}
                   fill
                   className="object-cover"
@@ -341,7 +343,9 @@ export default function ProductDetailPage({
               {/* Detail View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={`/demos/product-${getProductIndex(resolvedParams.id)}-1.png`}
+                  src={`/demos/product-${getProductIndex(
+                    resolvedParams.id
+                  )}-1.png`}
                   alt={`${product.name} detail view`}
                   fill
                   className="object-cover"
@@ -353,7 +357,9 @@ export default function ProductDetailPage({
             <div className="grid grid-cols-2 gap-4">
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={`/demos/product-${getProductIndex(resolvedParams.id)}-2.png`}
+                  src={`/demos/product-${getProductIndex(
+                    resolvedParams.id
+                  )}-2.png`}
                   alt={`${product.name} back view`}
                   fill
                   className="object-cover"
@@ -361,7 +367,9 @@ export default function ProductDetailPage({
               </div>
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={`/demos/product-${getProductIndex(resolvedParams.id)}-3.png`}
+                  src={`/demos/product-${getProductIndex(
+                    resolvedParams.id
+                  )}-3.png`}
                   alt={`${product.name} side view`}
                   fill
                   className="object-cover"
