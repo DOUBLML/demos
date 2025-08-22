@@ -17,6 +17,17 @@ import { Minus, Plus, ChevronRight, ZoomIn, ArrowDown } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
+// Helper function to get product index for dynamic images
+const getProductIndex = (productId: string) => {
+  const productIds = [
+    "leakproof-classic-one-piece-swimsuit",
+    "ruched-deep-v-bikini-top", 
+    "sculpt-wrap-one-piece-swimsuit",
+    "sculpt-ruched-bikini-top"
+  ];
+  return productIds.indexOf(productId) + 1;
+};
+
 // Mock product data - in a real app this would come from an API
 const productData = {
   "leakproof-classic-one-piece-swimsuit": {
@@ -317,15 +328,7 @@ export default function ProductDetailPage({
               {/* Front View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "leakproof-classic-one-piece-swimsuit"
-                      ? "/product-1.png"
-                      : resolvedParams.id === "ruched-deep-v-bikini-top"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "sculpt-wrap-one-piece-swimsuit"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
+                  src={`/product-${getProductIndex(resolvedParams.id)}.png`}
                   alt={`${product.name} front view`}
                   fill
                   className="object-cover"
@@ -338,15 +341,7 @@ export default function ProductDetailPage({
               {/* Detail View */}
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "leakproof-classic-one-piece-swimsuit"
-                      ? "/product-1.png"
-                      : resolvedParams.id === "ruched-deep-v-bikini-top"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "sculpt-wrap-one-piece-swimsuit"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
+                  src={`/product-${getProductIndex(resolvedParams.id)}-1.png`}
                   alt={`${product.name} detail view`}
                   fill
                   className="object-cover"
@@ -358,15 +353,7 @@ export default function ProductDetailPage({
             <div className="grid grid-cols-2 gap-4">
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "leakproof-classic-one-piece-swimsuit"
-                      ? "/product-1.png"
-                      : resolvedParams.id === "ruched-deep-v-bikini-top"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "sculpt-wrap-one-piece-swimsuit"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
+                  src={`/product-${getProductIndex(resolvedParams.id)}-2.png`}
                   alt={`${product.name} back view`}
                   fill
                   className="object-cover"
@@ -374,15 +361,7 @@ export default function ProductDetailPage({
               </div>
               <div className="relative bg-gray-100 rounded-lg overflow-hidden aspect-square">
                 <Image
-                  src={
-                    resolvedParams.id === "leakproof-classic-one-piece-swimsuit"
-                      ? "/product-1.png"
-                      : resolvedParams.id === "ruched-deep-v-bikini-top"
-                      ? "/product-2.png"
-                      : resolvedParams.id === "sculpt-wrap-one-piece-swimsuit"
-                      ? "/product-3.png"
-                      : "/product-4.png"
-                  }
+                  src={`/product-${getProductIndex(resolvedParams.id)}-3.png`}
                   alt={`${product.name} side view`}
                   fill
                   className="object-cover"
