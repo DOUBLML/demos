@@ -10,54 +10,46 @@ import Link from "next/link";
 export default function KnixHomepage() {
   const trendingProducts = [
     {
-      id: "revolution-scoop-bra",
-      name: "Revolution Scoop Bra",
-      price: "$60.00",
+      id: "leakproof-classic-one-piece-swimsuit",
+      name: "Leakproof Classic One Piece Swimsuit",
+      price: "$125.00",
       originalPrice: null,
-      badge: "New",
-      colors: ["#D4A574", "#000000", "#D4A574", "#F4C2C2", "#F4C2C2"],
+      badge: "Best Seller",
+      colors: ["#8B4513", "#000000", "#2F4F4F", "#9932CC"],
       image: "bg-amber-100",
     },
     {
-      id: "leakproof-ultrathin-no-show-bikini",
-      name: "Leakproof UltraThin No-Show Bikini",
-      price: "$27.00",
+      id: "ruched-deep-v-bikini-top",
+      name: "Ruched Deep V Bikini Top",
+      price: "$65.00",
       originalPrice: null,
-      badge: "Kristen's Fave",
+      badge: "New Silhouette",
       colors: [
-        "#D4A574",
+        "#9ACD32",
         "#000000",
-        "#8B4513",
-        "#F4C2C2",
-        "#4682B4",
-        "#DDA0DD",
+        "#FFFFFF",
+        "#2F4F4F",
+        "#F0E68C",
+        "#9932CC",
       ],
       image: "bg-amber-200",
     },
     {
-      id: "revolution-v-neck-bra",
-      name: "Revolution V-Neck Bra",
-      price: "$68.00",
+      id: "sculpt-wrap-one-piece-swimsuit",
+      name: "Sculpt Wrap One Piece Swimsuit",
+      price: "$135.00",
       originalPrice: null,
-      badge: "Best Seller",
-      colors: [
-        "#000000",
-        "#D4A574",
-        "#F5F5DC",
-        "#8B4513",
-        "#800080",
-        "#654321",
-      ],
+      badge: "New Silhouette",
+      colors: ["#000000", "#9932CC", "#F0E68C"],
       image: "bg-gray-900",
     },
     {
-      id: "sculptrib-cotton-tank",
-      name: "SculptRib™ Cotton Tank",
-      price: "$40.80",
-      originalPrice: "$48.00",
-      badge: "Joanna's Pick",
-      colors: ["#D4A574", "#000000", "#F5F5DC"],
-      discount: "15% off",
+      id: "sculpt-ruched-bikini-top",
+      name: "Sculpt Ruched Bikini Top",
+      price: "$70.00",
+      originalPrice: null,
+      badge: "New Silhouette",
+      colors: ["#F0E68C", "#000000"],
       image: "bg-amber-50",
     },
   ];
@@ -284,7 +276,7 @@ export default function KnixHomepage() {
                       />
                       {product.badge && (
                         <Badge
-                          className={`absolute top-4 left-4 ${
+                          className={`absolute bottom-4 left-4 ${
                             product.badge === "New"
                               ? "bg-gray-200 text-gray-800"
                               : product.badge === "Kristen's Fave"
@@ -314,11 +306,11 @@ export default function KnixHomepage() {
                           <span className="text-sm text-gray-500 line-through">
                             {product.originalPrice}
                           </span>
-                          {product.discount && (
+                          {/* {product.discount && (
                             <span className="text-sm text-blue-600">
                               {product.discount}
                             </span>
-                          )}
+                          )} */}
                         </>
                       )}
                     </div>
