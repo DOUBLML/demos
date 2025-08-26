@@ -14,7 +14,7 @@ export default function KnixHomepage() {
       name: "Leakproof Classic One Piece Swimsuit",
       price: "$125.00",
       originalPrice: null,
-      badge: "Best Seller",
+      badge: "Made-to-Measure",
       colors: ["#8B4513", "#000000", "#2F4F4F", "#9932CC"],
       image: "bg-amber-100",
     },
@@ -23,7 +23,7 @@ export default function KnixHomepage() {
       name: "Ruched Deep V Bikini Top",
       price: "$65.00",
       originalPrice: null,
-      badge: "New Silhouette",
+      badge: "Made-to-Measure",
       colors: [
         "#9ACD32",
         "#000000",
@@ -39,7 +39,7 @@ export default function KnixHomepage() {
       name: "Sculpt Wrap One Piece Swimsuit",
       price: "$135.00",
       originalPrice: null,
-      badge: "New Silhouette",
+      badge: "Made-to-Measure",
       colors: ["#000000", "#9932CC", "#F0E68C"],
       image: "bg-gray-900",
     },
@@ -48,7 +48,7 @@ export default function KnixHomepage() {
       name: "Sculpt Ruched Bikini Top",
       price: "$70.00",
       originalPrice: null,
-      badge: "New Silhouette",
+      badge: "Made-to-Measure",
       colors: ["#F0E68C", "#000000"],
       image: "bg-amber-50",
     },
@@ -275,18 +275,8 @@ export default function KnixHomepage() {
                         className="object-cover"
                       />
                       {product.badge && (
-                        <Badge
-                          className={`absolute bottom-4 left-4 ${
-                            product.badge === "New"
-                              ? "bg-gray-200 text-gray-800"
-                              : product.badge === "Kristen's Fave"
-                              ? "bg-purple-100 text-purple-800"
-                              : product.badge === "Best Seller"
-                              ? "bg-black text-white"
-                              : "bg-blue-100 text-blue-800"
-                          }`}
-                        >
-                          {product.badge}
+                        <Badge className="absolute bottom-4 left-4 bg-black text-white">
+                          Made-to-Measure
                         </Badge>
                       )}
                     </div>
