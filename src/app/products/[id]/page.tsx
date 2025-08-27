@@ -34,7 +34,7 @@ const productData = {
     name: "Leakproof Classic One Piece Swimsuit",
     price: "$125.00",
     originalPrice: null,
-    badge: "Best Seller",
+    badge: "Made-to-Measure",
     description:
       "The perfect blend of comfort and protection. Our signature leakproof technology meets swimwear innovation for confident water activities.",
     colors: [
@@ -61,7 +61,7 @@ const productData = {
     name: "Ruched Deep V Bikini Top",
     price: "$65.00",
     originalPrice: null,
-    badge: "New Silhouette",
+    badge: "Made-to-Measure",
     description:
       "A flattering deep V-neck with ruched detailing for a customizable fit. The perfect bikini top for sun-soaked days.",
     colors: [
@@ -90,7 +90,7 @@ const productData = {
     name: "Sculpt Wrap One Piece Swimsuit",
     price: "$135.00",
     originalPrice: null,
-    badge: "New Silhouette",
+    badge: "Made-to-Measure",
     description:
       "A sophisticated wrap design that sculpts and flatters your silhouette. The perfect one-piece for poolside elegance.",
     colors: [
@@ -116,7 +116,7 @@ const productData = {
     name: "Sculpt Ruched Bikini Top",
     price: "$70.00",
     originalPrice: null,
-    badge: "New Silhouette",
+    badge: "Made-to-Measure",
     description:
       "Features our signature sculpting technology with ruched detailing. A bikini top that flatters and supports in equal measure.",
     colors: [
