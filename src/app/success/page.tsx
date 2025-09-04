@@ -222,11 +222,11 @@ export default function SuccessPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
-                        AI Pattern Analysis
+                        3D Rendering
                       </h3>
-                      <p className="text-gray-600">
+                      {/* <p className="text-gray-600">
                         DOUBL analyzes your measurements and body profile
-                      </p>
+                      </p> */}
                     </div>
                   </div>
 
@@ -239,11 +239,11 @@ export default function SuccessPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
-                        Custom Adjustments
+                        Tracking
                       </h3>
-                      <p className="text-gray-600">
+                      {/* <p className="text-gray-600">
                         Pattern is adjusted for your unique measurements
-                      </p>
+                      </p> */}
                     </div>
                   </div>
 
@@ -256,11 +256,11 @@ export default function SuccessPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
-                        Production Ready
+                        Delivery
                       </h3>
-                      <p className="text-gray-600">
+                      {/* <p className="text-gray-600">
                         Optimized pattern sent to manufacturing
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </div>
