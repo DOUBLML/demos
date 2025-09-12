@@ -388,7 +388,7 @@ export default function GenerateDoublIdPage() {
                         </div>
                       </div>
 
-                      <div className="pt-4 border-t border-gray-200">
+                      {/* <div className="pt-4 border-t border-gray-200">
                         <div className="text-sm text-gray-500 mb-4">
                           COMPATIBLE STORES
                         </div>
@@ -433,7 +433,7 @@ export default function GenerateDoublIdPage() {
                             </Badge>
                           </div>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </CardContent>
                 </Card>
