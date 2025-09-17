@@ -281,8 +281,9 @@ export default function SuccessPage() {
                         playsInline
                         muted
                       >
+                        <source src="/MyTAILOR Demo.mp4" type="video/mp4" />
                         <source
-                          src="/demos/DOUBL TAILOR Demo - Made with Clipchamp.mp4"
+                          src="/videos/MyTAILOR Demo.mp4"
                           type="video/mp4"
                         />
                         Your browser does not support the video tag.
