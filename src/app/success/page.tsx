@@ -281,11 +281,11 @@ export default function SuccessPage() {
                         playsInline
                         muted
                       >
-                        <source src="/MyTAILOR Demo.mp4" type="video/mp4" />
-                        <source
+                        <source src="/demos/MyTAILOR Demo.mp4" type="video/mp4" />
+                        {/* <source
                           src="/videos/MyTAILOR Demo.mp4"
                           type="video/mp4"
-                        />
+                        /> */}
                         Your browser does not support the video tag.
                       </video>
 
