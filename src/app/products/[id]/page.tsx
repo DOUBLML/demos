@@ -495,9 +495,9 @@ export default function ProductDetailPage({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="input">Input DOUBL ID</SelectItem>
+                  <SelectItem value="input">Input MyFitID</SelectItem>
                   <SelectItem value="no-doubl-id">
-                    I don't have a DOUBL ID
+                    I don't have a MyFitID
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -506,7 +506,7 @@ export default function ProductDetailPage({
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-900 mb-2">
-                      Enter your DOUBL ID
+                      Enter your MyFitID
                     </label>
                     <Input
                       type="text"
@@ -540,7 +540,7 @@ export default function ProductDetailPage({
               {doublIdOption === "no-doubl-id" && (
                 <div className="space-y-4">
                   <p className="text-sm text-gray-600">
-                    Don't have a DOUBL ID yet? Create one in under 60 seconds.
+                    Don't have a MyFitID yet? Create one in under 60 seconds.
                   </p>
                   <div className="flex gap-3">
                     <Button
@@ -558,13 +558,15 @@ export default function ProductDetailPage({
                     </Button>
                     <Button
                       onClick={handleScanLater}
-                      className="text-white flex-1 transition-all duration-200 hover:shadow-lg active:scale-95"
-                      style={{ backgroundColor: "#800020" }}
+                      variant="outline"
+                      className="text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200 hover:shadow-md active:scale-95 flex-1"
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#5a0015";
+                        e.currentTarget.style.backgroundColor = "#f9fafb";
+                        e.currentTarget.style.borderColor = "#9ca3af";
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "#800020";
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.borderColor = "#d1d5db";
                       }}
                     >
                       SCAN LATER
@@ -581,7 +583,7 @@ export default function ProductDetailPage({
                         e.currentTarget.style.borderColor = "#d1d5db";
                       }}
                     >
-                      What is DOUBL ID?
+                      What is MyFitID?
                     </Button>
                   </div>
                 </div>

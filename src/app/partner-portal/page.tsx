@@ -373,7 +373,7 @@ function CustomersPage() {
   const cols = [
     { key: "name", label: "Customer" },
     { key: "email", label: "Email" },
-    { key: "doublId", label: "DOUBL ID" },
+    { key: "doublId", label: "MyFitID" },
     { key: "lastOrderId", label: "Last Order" },
     { key: "lastOrderDate", label: "Last Active" },
   ];
