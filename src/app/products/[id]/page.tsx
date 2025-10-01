@@ -232,6 +232,24 @@ export default function ProductDetailPage({
     router.push("/generate-doubl-id");
   };
 
+  const handleScanLater = () => {
+    // Save product data to localStorage for checkout without DOUBL ID
+    const checkoutData = {
+      id: resolvedParams.id,
+      name: product.name,
+      price: product.price,
+      originalPrice: product.originalPrice,
+      selectedColor: selectedColor.name,
+      selectedSize: selectedSize || "S",
+      doublId: "",
+      quantity: quantity,
+      scanLater: true,
+    };
+
+    localStorage.setItem("checkoutProduct", JSON.stringify(checkoutData));
+    router.push("/checkout");
+  };
+
   return (
     <div className="min-h-screen bg-white">
       {/* Top Banner */}
@@ -527,22 +545,40 @@ export default function ProductDetailPage({
                   <div className="flex gap-3">
                     <Button
                       onClick={handleScanNow}
-                      className="text-white transition-all duration-200 hover:shadow-lg active:scale-95"
-                      style={{ backgroundColor: "#7c0347" }}
-                      onMouseEnter={(e) =>
-                        (e.currentTarget.style.backgroundColor = "#5a0233")
-                      }
-                      onMouseLeave={(e) =>
-                        (e.currentTarget.style.backgroundColor = "#7c0347")
-                      }
+                      className="text-white flex-1 transition-all duration-200 hover:shadow-lg active:scale-95"
+                      style={{ backgroundColor: "#800020" }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "#5a0015";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "#800020";
+                      }}
                     >
                       SCAN NOW
                     </Button>
                     <Button
+                      onClick={handleScanLater}
+                      className="text-white flex-1 transition-all duration-200 hover:shadow-lg active:scale-95"
+                      style={{ backgroundColor: "#800020" }}
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "#5a0015";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "#800020";
+                      }}
+                    >
+                      SCAN LATER
+                    </Button>
+                    <Button
                       variant="outline"
-                      className="text-black border-gray-400 transition-all duration-200 hover:bg-gray-100 hover:border-gray-500 active:scale-95"
-                      onClick={() => {
-                        /* Add tooltip or modal functionality here if needed */
+                      className="text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200 hover:shadow-md active:scale-95 flex-1"
+                      onMouseEnter={(e) => {
+                        e.currentTarget.style.backgroundColor = "#f9fafb";
+                        e.currentTarget.style.borderColor = "#9ca3af";
+                      }}
+                      onMouseLeave={(e) => {
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.borderColor = "#d1d5db";
                       }}
                     >
                       What is DOUBL ID?
