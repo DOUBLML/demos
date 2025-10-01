@@ -97,7 +97,7 @@ export default function GenerateDoublIdPage() {
               Back to Product
             </Button>
             <h1 className="text-xl font-semibold text-gray-900">
-              Create Your DOUBL ID
+              Create Your MyFitID
             </h1>
             <div className="w-32"></div> {/* Spacer for centering */}
           </div>
@@ -149,7 +149,7 @@ export default function GenerateDoublIdPage() {
                   currentStep >= 5 ? "text-gray-900" : "text-gray-600"
                 }`}
               >
-                Generate DOUBL ID
+                Generate MyFitID
               </span>
             </div>
           </div>
@@ -230,7 +230,7 @@ export default function GenerateDoublIdPage() {
                     onClick={handleSkipDemo}
                     className="text-gray-600 border-gray-300 hover:bg-gray-50"
                   >
-                    Skip Demo & Generate ID
+                    Skip Demo & Generate MyFitID
                   </Button>
                 </div>
               </div>
@@ -313,7 +313,7 @@ export default function GenerateDoublIdPage() {
                     </div>
                     <div>
                       <h3 className="text-lg font-semibold text-gray-900">
-                        Get Your DOUBL ID
+                        Get Your MyFitID
                       </h3>
                       <p className="text-gray-600">
                         Receive your personalized fit profile instantly
@@ -347,7 +347,7 @@ export default function GenerateDoublIdPage() {
               <div className="flex items-center justify-center mb-6">
                 <CheckCircle className="h-12 w-12 text-green-500 mr-3" />
                 <h2 className="text-4xl font-bold text-gray-900">
-                  Your DOUBL ID is Ready!
+                  Your MyFitID is Ready!
                 </h2>
               </div>
               <p className="text-xl text-gray-600">
@@ -370,7 +370,7 @@ export default function GenerateDoublIdPage() {
 
                       <div className="space-y-3">
                         <div className="text-sm text-gray-500 uppercase tracking-wide">
-                          DOUBL ID
+                          MyFitID
                         </div>
                         <div className="text-3xl font-bold text-gray-900 font-mono tracking-wider">
                           {generatedId}
@@ -456,7 +456,7 @@ export default function GenerateDoublIdPage() {
                         </div>
                         <div>
                           <p className="text-sm font-medium text-gray-900">
-                            Use your DOUBL ID
+                            Use your MyFitID
                           </p>
                           <p className="text-xs text-gray-600">
                             Go back and complete your purchase
@@ -525,7 +525,7 @@ export default function GenerateDoublIdPage() {
                     }}
                     className="w-full text-gray-700 border-gray-300 hover:bg-gray-50"
                   >
-                    Generate New ID
+                    Generate New MyFitID
                   </Button>
 
                   <div className="text-center">

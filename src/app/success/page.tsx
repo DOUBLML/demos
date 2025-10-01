@@ -185,7 +185,7 @@ export default function SuccessPage() {
                       DOUBL Transforms Your Pattern
                     </h3>
                     <p className="text-gray-700 mb-4">
-                      Using your DOUBL ID and the design code, our AI transforms
+                      Using your MyFitID and the design code, our AI transforms
                       the standard pattern into your perfect fit.
                     </p>
                     {orderData && (
@@ -195,7 +195,7 @@ export default function SuccessPage() {
                           <span className="font-medium">{orderData.name}</span>
                         </div>
                         <div className="flex justify-between">
-                          <span className="text-gray-600">DOUBL ID:</span>
+                          <span className="text-gray-600">MyFitID:</span>
                           <span className="font-medium font-mono">
                             {orderData.doublId}
                           </span>

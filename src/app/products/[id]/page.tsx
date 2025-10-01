@@ -487,9 +487,9 @@ export default function ProductDetailPage({
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
-                  <SelectItem value="input">Input DOUBL ID</SelectItem>
+                  <SelectItem value="input">Input MyFitID</SelectItem>
                   <SelectItem value="no-doubl-id">
-                    I don't have a DOUBL ID
+                    I don't have a MyFitID
                   </SelectItem>
                 </SelectContent>
               </Select>
@@ -498,7 +498,7 @@ export default function ProductDetailPage({
                 <div className="space-y-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-900 mb-2">
-                      Enter your DOUBL ID
+                      Enter your MyFitID
                     </label>
                     <Input
                       type="text"
@@ -532,7 +532,7 @@ export default function ProductDetailPage({
               {doublIdOption === "no-doubl-id" && (
                 <div className="space-y-4">
                   <p className="text-sm text-gray-600">
-                    Don't have a DOUBL ID yet? Create one in under 60 seconds.
+                    Don't have a MyFitID yet? Create one in under 60 seconds.
                   </p>
                   <div className="flex gap-3">
                     <Button
@@ -573,7 +573,7 @@ export default function ProductDetailPage({
                         e.currentTarget.style.borderColor = "#d1d5db";
                       }}
                     >
-                      What is DOUBL ID?
+                      What is MyFitID?
                     </Button>
                   </div>
                 </div>
