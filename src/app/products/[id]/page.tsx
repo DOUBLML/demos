@@ -550,13 +550,15 @@ export default function ProductDetailPage({
                     </Button>
                     <Button
                       onClick={handleScanLater}
-                      className="text-white flex-1 transition-all duration-200 hover:shadow-lg active:scale-95"
-                      style={{ backgroundColor: "#800020" }}
+                      variant="outline"
+                      className="text-gray-700 border-gray-300 hover:bg-gray-50 transition-all duration-200 hover:shadow-md active:scale-95 flex-1"
                       onMouseEnter={(e) => {
-                        e.currentTarget.style.backgroundColor = "#5a0015";
+                        e.currentTarget.style.backgroundColor = "#f9fafb";
+                        e.currentTarget.style.borderColor = "#9ca3af";
                       }}
                       onMouseLeave={(e) => {
-                        e.currentTarget.style.backgroundColor = "#800020";
+                        e.currentTarget.style.backgroundColor = "transparent";
+                        e.currentTarget.style.borderColor = "#d1d5db";
                       }}
                     >
                       SCAN LATER
